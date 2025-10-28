@@ -6,56 +6,210 @@
   <title>Happy Birthday My Angel</title>
   <style>
     :root{
-      --bg1:#0f1021;
-      --bg2:#1b1c3a;
-      --accent:#ffdd66;
-      --text:#ffffff;
+      --bg1:#0f1021; --bg2:#1b1c3a;
+      --accent:#ffdd66; --text:#ffffff;
+      --card:#ffffff10; --border:#ffffff1a;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
+      margin:0; color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
       background:
         radial-gradient(1200px 600px at 10% 10%, #ffffff08 0%, transparent 60%),
         radial-gradient(800px 400px at 90% 20%, #ffffff05 0%, transparent 60%),
         linear-gradient(135deg,var(--bg1),var(--bg2));
-      display:grid;
-      place-items:center;
-      overflow:hidden;
+      display:grid; place-items:start center; overflow-x:hidden;
+      padding:34px 16px 70px;
     }
-
     .card{
-      background:rgba(255,255,255,0.06);
-      border-radius:20px;
-      box-shadow:0 10px 40px rgba(0,0,0,0.3);
-      padding:50px 40px;
-      text-align:center;
-      backdrop-filter:blur(20px);
-      border:1px solid rgba(255,255,255,0.1);
-      animation: fadeIn 2s ease;
+      text-align:center; padding:42px 28px;
+      width:min(92vw, 860px);
+      background:var(--card); border:1px solid var(--border);
+      border-radius:28px; backdrop-filter: blur(8px);
+      box-shadow: 0 10px 40px #00000055; animation: fadeIn .6s ease;
+      margin-inline:auto;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size: clamp(26px, 7vw, 48px);
+      line-height:1.22; letter-spacing:.4px;
+      background: linear-gradient(90deg, #fff, #ffe7a6, #fff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 0 10px #fff2;
+    }
+    .sparkle{ display:inline-block; animation: sparkle 2.6s ease-in-out infinite; }
+    @keyframes sparkle{ 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.08);opacity:.85} }
+    p{ margin:8px 0 16px; opacity:.9; font-size:clamp(15px,3.2vw,19px) }
+
+    .actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px }
+    .btn{
+      appearance:none;border:0;cursor:pointer;
+      padding:12px 20px;border-radius:999px;
+      font-weight:700;font-size:16px;letter-spacing:.2px;
+      color:#1f2937;background:var(--accent);
+      box-shadow:0 6px 20px #ffd16655; transition:transform .05s ease;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+
+    /* cute images */
+    .sticker{
+      display:block; margin:10px auto 6px;
+      width:min(32vw,130px); height:auto;
+      filter: drop-shadow(0 6px 12px #00000030);
+      user-select:none; -webkit-user-drag:none;
+    }
+    .float{ animation: floaty 4.5s ease-in-out infinite; }
+    @keyframes floaty{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+    /* Polaroid */
+    .polaroid{
+      width:min(80vw, 300px); margin:12px auto 2px; padding:10px 10px 16px;
+      background:#fff; color:#111; border-radius:12px;
+      box-shadow: 0 12px 34px #00000035;
+    }
+    .polaroid img{ width:100%; display:block; border-radius:10px; object-fit:cover; aspect-ratio:4/5; }
+    .polaroid figcaption{ margin-top:8px; text-align:center; font-size:14px; opacity:.7; }
+
+    /* Gallery */
+    .gallery{
+      margin:24px auto 0; width:min(94vw, 980px);
+      display:grid; gap:12px;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    .gallery img{
+      width:100%; height:180px; object-fit:cover; border-radius:12px;
+      box-shadow:0 8px 20px #00000030; background:#222;
     }
 
-    h1 {
-      font-size: clamp(24px, 6vw, 42px);
-      text-align: center;
-      line-height: 1.3;
-      color: #fff8e7;
-      text-shadow: 0 0 12px rgba(255,255,200,0.5);
-      margin-bottom: 10px;
+    /* Confetti */
+    .confetti{
+      position:fixed; top:-12px; width:8px; height:5px; opacity:.9;
+      will-change: transform; pointer-events:none; animation: fall linear forwards;
+    }
+    @keyframes fall{ to{ transform: translateY(110vh) rotate(720deg); opacity:.95 } }
+
+    /* subtle star background */
+    .spark-bg{
+      position: fixed; inset:0; pointer-events:none; z-index:-1;
+      background-image:
+        radial-gradient(#ffffff0e 2px, transparent 2px),
+        radial-gradient(#ffffff0a 1px, transparent 1px);
+      background-size: 120px 120px, 200px 200px;
+      background-position: 0 0, 60px 40px;
+      animation: drift 25s linear infinite;
+    }
+    @keyframes drift{ to{ background-position: 120px 120px, 260px 240px; } }
+    @keyframes fadeIn{ from{opacity:0;transform:scale(.98)} to{opacity:1;transform:scale(1)} }
+  </style>
+</head>
+<body>
+  <div class="spark-bg" aria-hidden="true"></div>
+
+  <main class="card" role="main">
+    <h1>
+      HAPPY BIRTHDAY MY ANGEL
+      <span class="sparkle">(*ᴗ͈ˬᴗ͈)ꕤ*.ﾟ</span>
+    </h1>
+    <p>Wishing you a day as lovely as you are ฅ^&gt;⩊&lt;^ ฅ</p>
+
+    <!-- emoji line -->
+    <div style="font-size:clamp(20px,5vw,34px);margin:4px 0 8px;">😺 ✨ 🎂 💖</div>
+
+    <!-- cat sticker -->
+    <img id="catSticker" class="sticker float" alt="cute cat"/>
+
+    <!-- your photo -->
+    <figure class="polaroid">
+      <img id="myPhoto" alt="my photo"/>
+      <figcaption>me + happy vibes</figcaption>
+    </figure>
+
+    <div class="actions">
+      <button class="btn" id="wishBtn">Make a wish 🎂</button>
+      <button class="btn" id="musicBtn">🔈 Music</button>
+    </div>
+  </main>
+
+  <!-- background music -->
+  <audio id="bgm" preload="auto"></audio>
+
+  <!-- Auto gallery of all uploaded images -->
+  <section class="gallery" id="gallery"></section>
+
+  <script>
+    // ====== FILE NAMES from your screenshot ======
+    const musicName = "Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3";
+    const stickerFile = "làm mèo hok.jpg";            // mèo cute
+    const myPhotoFile = "Little Tinkerbell.jpg";      // ảnh của bạn
+
+    // All gallery images (you can add/remove freely)
+    const galleryFiles = [
+      "If u got issues, I got tissues.jpg",
+      "Happy Birthday.jpg",
+      "Little Tinkerbell.jpg",
+      "Oatmilk.jpg",
+      "làm mèo hok.jpg",
+      "nhảy nhảy.jpg",
+      "Thắng làm vua.jpg",
+      "Anh bò cười siêng năng.jpg",
+      "you're alright.jpg",
+      "be kind to your mind.jpg"
+    ];
+
+    // ====== Set sources with encodeURI to support spaces, emoji, accents, apostrophes ======
+    const bgm = document.getElementById('bgm');
+    bgm.src = encodeURI("assets/" + musicName);
+
+    const catSticker = document.getElementById('catSticker');
+    catSticker.src = encodeURI("assets/" + stickerFile);
+
+    const myPhoto = document.getElementById('myPhoto');
+    myPhoto.src = encodeURI("assets/" + myPhotoFile);
+
+    // ====== Build gallery ======
+    const gallery = document.getElementById('gallery');
+    galleryFiles.forEach(name => {
+      const img = new Image();
+      img.loading = "lazy";
+      img.alt = name;
+      img.src = encodeURI("assets/" + name);
+      gallery.appendChild(img);
+    });
+
+    // ====== Confetti + Music controls ======
+    const btn = document.getElementById('wishBtn');
+    const musicBtn = document.getElementById('musicBtn');
+
+    const colors = ["#ffd166","#ef476f","#06d6a0","#118ab2","#ffe66d","#a78bfa","#fca5a5","#86efac","#fde68a"];
+
+    function shootConfetti(pieces = 200){
+      for(let i=0;i<pieces;i++){
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        const size = 6 + Math.random()*6;
+        c.style.width = size+'px';
+        c.style.height = (size*0.6)+'px';
+        c.style.left = Math.random()*100 + 'vw';
+        c.style.background = colors[Math.floor(Math.random()*colors.length)];
+        c.style.transform = `translateY(0) rotate(${Math.random()*360}deg)`;
+        c.style.animationDuration = (3 + Math.random()*2) + 's';
+        c.style.animationDelay = (Math.random()*0.2)+'s';
+        c.style.borderRadius = (Math.random()>.5? '2px':'50%');
+        document.body.appendChild(c);
+        setTimeout(()=> c.remove(), 6000);
+      }
     }
 
-    .sparkle {
-      animation: sparkle 2.5s ease-in-out infinite;
-      display: inline-block;
-    }
+    btn.addEventListener('click', () => {
+      shootConfetti();
+      try { bgm.currentTime = 0; bgm.volume = 0.5; bgm.play(); } catch(e) {}
+    });
 
-    @keyframes sparkle {
-      0%,100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.08); opacity: 0.8; }
-    }
-
-    p {
-      f
+    musicBtn.addEventListener('click', async () => {
+      if(bgm.paused){ await bgm.play(); musicBtn.textContent='🔊 Music'; }
+      else { bgm.pause(); musicBtn.textContent='🔈 Music'; }
+    });
+  </script>
+</body>
+</html>
