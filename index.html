@@ -1,15 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Birthday</title>
+  <title>Happy Birthday My Angel</title>
   <style>
     :root{
-      --bg1:#0f1021; --bg2:#1b1c3a;
-      --accent:#ffd166;
+      --bg1:#0f1021;
+      --bg2:#1b1c3a;
+      --accent:#ffdd66;
       --text:#ffffff;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -24,107 +26,36 @@
       place-items:center;
       overflow:hidden;
     }
+
     .card{
+      background:rgba(255,255,255,0.06);
+      border-radius:20px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.3);
+      padding:50px 40px;
       text-align:center;
-      padding:48px 28px;
-      border-radius:28px;
-      backdrop-filter: blur(4px);
-      background: #ffffff10;
-      border:1px solid #ffffff1a;
-      box-shadow: 0 10px 40px #00000055;
-      max-width: 720px;
-      width:min(92vw,720px);
-    }
-    h1{
-      margin:0 0 10px;
-      font-size:clamp(28px, 8vw, 56px);
-      line-height:1.05;
-      letter-spacing: 0.5px;
-      background: linear-gradient(90deg, #fff, #ffe9a6, #fff);
-      -webkit-background-clip:text; background-clip:text;
-      color:transparent;
-    }
-    p{
-      margin:6px 0 18px;
-      opacity:.9;
-      font-size:clamp(14px,2.8vw,18px);
-    }
-    .btn{
-      appearance:none; border:0; cursor:pointer;
-      padding:14px 20px; border-radius:999px;
-      font-weight:600; font-size:16px; letter-spacing:.2px;
-      color:#1f2937; background:var(--accent);
-      box-shadow:0 6px 20px #ffd16655;
-      transition: transform .05s ease;
-    }
-    .btn:active{ transform: translateY(1px) scale(.99); }
-
-    /* Confetti pieces */
-    .confetti{
-      position:fixed;
-      top:-12px;
-      width:8px; height:5px;
-      opacity:.9;
-      will-change: transform;
-      pointer-events:none;
-      animation: fall linear forwards;
-    }
-    @keyframes fall{
-      to{
-        transform: translateY(110vh) rotate(720deg);
-        opacity: .95;
-      }
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.1);
+      animation: fadeIn 2s ease;
     }
 
-    /* subtle floating sparkles */
-    .sparkle{
-      position: fixed; inset:0; pointer-events:none;
-      background-image:
-        radial-gradient(#ffffff0e 2px, transparent 2px),
-        radial-gradient(#ffffff0a 1px, transparent 1px);
-      background-size: 120px 120px, 200px 200px;
-      background-position: 0 0, 60px 40px;
-      animation: drift 25s linear infinite;
-    }
-    @keyframes drift{ to{ background-position: 120px 120px, 260px 240px; } }
-  </style>
-</head>
-<body>
-  <div class="sparkle" aria-hidden="true"></div>
-
-  <main class="card" role="main">
-    <h1>Happy birthday my angel ✨</h1>
-    <p>Wishing you a day as lovely as you are.</p>
-    <button class="btn" id="wishBtn" aria-label="Make a wish">Make a wish 🎂</button>
-  </main>
-
-  <script>
-    // Confetti without any library
-    const colors = ["#ffd166","#ef476f","#06d6a0","#118ab2","#ffe66d","#a78bfa","#fca5a5","#86efac","#fde68a"];
-    const btn = document.getElementById('wishBtn');
-
-    function shootConfetti(pieces = 150){
-      for(let i=0;i<pieces;i++){
-        const c = document.createElement('div');
-        c.className = 'confetti';
-        const size = 6 + Math.random()*6;
-        c.style.width = size+'px';
-        c.style.height = (size*0.6)+'px';
-        c.style.left = Math.random()*100 + 'vw';
-        c.style.background = colors[Math.floor(Math.random()*colors.length)];
-        c.style.transform = `translateY(0) rotate(${Math.random()*360}deg)`;
-        c.style.animationDuration = (3 + Math.random()*2) + 's';
-        c.style.animationDelay = (Math.random()*0.2)+'s';
-        c.style.borderRadius = (Math.random()>.5? '2px':'50%');
-        document.body.appendChild(c);
-        // Clean up
-        setTimeout(()=> c.remove(), 6000);
-      }
+    h1 {
+      font-size: clamp(24px, 6vw, 42px);
+      text-align: center;
+      line-height: 1.3;
+      color: #fff8e7;
+      text-shadow: 0 0 12px rgba(255,255,200,0.5);
+      margin-bottom: 10px;
     }
 
-    // Fire confetti on button click and on first load
-    btn.addEventListener('click', ()=> shootConfetti(180));
-    window.addEventListener('load', ()=> setTimeout(()=> shootConfetti(120), 600));
-  </script>
-</body>
-</html>
+    .sparkle {
+      animation: sparkle 2.5s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes sparkle {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.8; }
+    }
+
+    p {
+      f
