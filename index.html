@@ -1,156 +1,263 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Happy Birthday My Angel!</title>
+<title>Happy Birthday My Angel</title>
 <style>
+/* ===== Theme postcard hồng ===== */
 :root{
-  --bg1:#0f1021; --bg2:#1b1c3a;
-  --ink:#2b2b2b; --paper:#fffdfa;
-  --accent:#ffdd66; --rose:#ff7aa2; --blue:#5bc0ff;
+  --pink1:#ffd1e8;
+  --pink2:#ffc0de;
+  --paper:#fffdfa;
+  --rose:#ff4d94;
+  --rose2:#ff8fb3;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:"Segoe UI",sans-serif}
+html,body{height:100%}
 body{
-  color:#fff;
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
-  display:grid;place-items:start center;
-  padding:40px 16px 160px;
-  overflow-x:hidden;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto;
+  background:
+    radial-gradient(ellipse at 20% -20%, #ffffff70 0 18%, #0000 20%),
+    radial-gradient(ellipse at 120% 20%, #ffffff50 0 14%, #0000 20%),
+    linear-gradient(135deg,var(--pink1),var(--pink2));
+  min-height:100dvh; display:grid; place-items:start center;
+  padding:40px 16px 160px; color:#111;
 }
-.spark-bg{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background-image:
-    radial-gradient(#ffffff15 2px,transparent 2px),
-    radial-gradient(#ffffff12 1px,transparent 1px);
-  background-size:120px 120px,200px 200px;
-  background-position:0 0,60px 40px;
-  animation:drift 25s linear infinite;
+.card{
+  width:min(96vw, 980px);
+  background:var(--paper);
+  border-radius:26px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  border: 10px solid #ffe6f2;
+  position:relative;
 }
-@keyframes drift{to{background-position:120px 120px,260px 240px}}
-
-.postcard{
-  width:min(95vw,980px);
-  background:var(--paper);color:var(--ink);
-  border-radius:24px;box-shadow:0 20px 60px #0006;
-  position:relative;overflow:hidden;
-  animation:fadeIn .6s ease;
+header{text-align:center; padding:34px 22px 8px;}
+h1{
+  font-size: clamp(28px, 7vw, 48px);
+  font-weight: 900;
+  background: linear-gradient(90deg, var(--rose), var(--rose2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
 }
-.airmail::before{
-  content:"";position:absolute;inset:0;
-  background:repeating-linear-gradient(45deg,#ff6b6b 0 24px,#ff6b6b 24px 48px,#5bc0ff 48px 72px,#5bc0ff 72px 96px);
-  opacity:.4;
-}
-.head{text-align:center;padding:36px 24px 16px}
-.head h1{font-size:clamp(28px,6vw,48px);background:linear-gradient(90deg,#000,#6b5bc0,#000);
-  -webkit-background-clip:text;background-clip:text;color:transparent;}
-.head p{margin-top:6px;font-size:clamp(15px,3vw,18px);opacity:.8}
-
-.hero{display:grid;place-items:center;padding:16px}
-.hero img{width:min(360px,80vw);border-radius:20px;animation:floaty 4s ease-in-out infinite;box-shadow:0 10px 30px #0004}
+.sub{margin-top:8px; font-size:clamp(15px,3.2vw,18px); color:#444;}
+.hero{display:grid; place-items:center; padding:18px}
+.hero img{width:min(360px,80vw); border-radius:18px; box-shadow:0 10px 28px #00000022; animation: floaty 4s ease-in-out infinite}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
-.polaroid{width:min(80vw,300px);margin:10px auto;background:#fff;color:#111;padding:10px;border-radius:12px;box-shadow:0 10px 30px #0003}
-.polaroid img{width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/5}
-.polaroid figcaption{text-align:center;margin-top:6px;font-size:14px;opacity:.7}
+/* ===== Lời chúc sau GIF ===== */
+.bless{
+  margin: 6px 16px 18px;
+  background:#fff6fb;
+  border: 2px solid #ffc7df;
+  border-radius: 18px;
+  padding: 18px 16px;
+  box-shadow: 0 10px 24px rgba(255, 155, 188, .25);
+}
+.bless .lead{
+  font-weight:700;
+  color:#a12c62;
+  line-height:1.5;
+  margin-bottom:10px;
+}
+.wish-list{list-style:none; display:grid; gap:8px; margin:6px 0 0}
+.wish-list li{
+  display:flex; gap:10px; align-items:flex-start;
+  background:#ffffff;
+  border:1px dashed #ffc0de;
+  padding:10px 12px; border-radius:12px; color:#4a2436;
+  box-shadow: 0 4px 10px rgba(255, 160, 190, .14);
+  opacity:0; transform:translateY(6px);
+  animation: wishIn .6s ease forwards;
+}
+.wish-list li:nth-child(1){animation-delay:.05s}
+.wish-list li:nth-child(2){animation-delay:.12s}
+.wish-list li:nth-child(3){animation-delay:.19s}
+.wish-list li:nth-child(4){animation-delay:.26s}
+.wish-list li:nth-child(5){animation-delay:.33s}
+.wish-list li:nth-child(6){animation-delay:.4s}
+.wish-list .tick{
+  flex:0 0 22px; height:22px; border-radius:50%;
+  display:grid; place-items:center; font-size:12px;
+  color:#fff; background:linear-gradient(135deg,#ff4d94,#ff8fb3);
+  box-shadow:0 2px 8px rgba(255,77,148,.45);
+}
+@keyframes wishIn{to{opacity:1; transform:translateY(0)}}
 
-.gift-wrap{display:grid;place-items:center;padding:14px 0}
-.gift{position:relative;width:130px;height:110px;cursor:pointer}
-.gift .box{position:absolute;bottom:0;width:100%;height:82px;background:#ffd166;border-radius:10px}
-.gift .lid{position:absolute;top:0;width:100%;height:42px;background:#ffe69c;border-radius:10px;transition:transform .5s ease}
-.gift .ribbon-v,.gift .ribbon-h{position:absolute;background:#ff7aa2}
-.gift .ribbon-v{width:18px;inset:0;margin:auto;border-radius:6px}
-.gift .ribbon-h{height:18px;width:100%;top:32px;border-radius:6px}
-.gift.open .lid{transform:rotate(-22deg) translate(10px,-22px)}
+/* ===== Gallery ===== */
+.scrollers{display:grid; gap:14px; padding:0 16px 28px}
+.scroller{overflow:hidden; mask-image:linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%)}
+.track{display:flex; gap:14px; animation: scroll 30s linear infinite}
+.track img{width:220px; height:160px; object-fit:cover; border-radius:16px; background:#222; box-shadow:0 6px 16px #00000026}
+.scroller.slow .track{animation-duration:38s}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-.gallery{padding:0 20px 30px;display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));max-height:0;overflow:hidden;opacity:0;transition:all .6s ease}
-.gallery.show{max-height:2000px;opacity:1}
-.gallery img{width:100%;height:180px;object-fit:cover;border-radius:16px;background:#222;box-shadow:0 6px 15px #0004;animation:sway 6s ease-in-out infinite}
-.gallery img:nth-child(odd){animation-duration:7.2s}
-.gallery img:nth-child(3n){animation-duration:5.8s}
-@keyframes sway{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px) scale(1.02)}}
-
-.confetti{position:fixed;top:-12px;width:8px;height:5px;opacity:.9;animation:fall linear forwards}
+/* ===== Candle ===== */
+.candle-area{padding:22px 14px 44px; text-align:center; background:#fff7fb}
+.candle-title{font-weight:700; color:#3b1f2b; margin-bottom:8px;}
+.candle-box{display:inline-grid; place-items:center; margin-top:8px}
+.candle{position:relative; width:50px; height:120px; background:linear-gradient(#fff3cf,#ffe9a8);
+  border-radius:10px; box-shadow: inset 0 0 20px #00000018, 0 12px 26px #ff9abc55;
+  animation: bob 3s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.wick{position:absolute; top:-8px; left:50%; transform:translateX(-50%); width:4px; height:12px; background:#2b2b2b; border-radius:2px}
+.flame{
+  position:absolute; top:-30px; left:50%; transform:translateX(-50%);
+  width:26px; height:38px; border-radius:50% 50% 46% 46%;
+  background: radial-gradient(ellipse at 50% 40%, #fff4c1 0, #ffd15e 55%, #ff9a2b 78%, #0000 80%);
+  box-shadow:0 0 18px 8px rgba(255,201,86,.55),0 0 40px 16px rgba(255,154,43,.3);
+  animation: flicker .12s infinite alternate;
+}
+@keyframes flicker{0%{transform:translateX(calc(-50% - 1px)) scale(1)}100%{transform:translateX(calc(-50% + 1px)) scale(0.96)}}
+.wish-text{margin-top:16px; font-weight:800; color:#ff4d94; opacity:0; transform:translateY(8px);
+  transition:opacity .5s ease, transform .5s ease;}
+.wish-text.show{opacity:1; transform:translateY(0)}
+.confetti{position:fixed; top:-12px; width:8px; height:5px; opacity:.95; pointer-events:none; animation: fall linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
-@keyframes fadeIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
 
-/* Candle Section */
-.candle-section{padding:50px 0 80px;text-align:center}
-.candle-box{position:relative;display:inline-block;margin-top:20px}
-.candle{width:40px;height:90px;background:#fff8dc;border-radius:6px;margin:auto;position:relative;box-shadow:inset 0 0 10px #0002}
-.flame{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:20px;height:30px;background:radial-gradient(ellipse at center,#ffb347 0%,#ffcc33 50%,#ffeb99 100%);border-radius:50% 50% 50% 50%;animation:flameMove .25s infinite alternate}
-@keyframes flameMove{0%{transform:translateX(-50%) scaleY(1)}100%{transform:translateX(-50%) scaleY(.9)}}
-.wish-text{opacity:0;transform:translateY(10px);transition:all .6s ease;margin-top:20px;color:#fff;font-weight:600;font-size:18px;}
-.wish-text.show{opacity:1;transform:translateY(0)}
+/* ===== Youtube box ===== */
+.youtube-box{text-align:center; padding:30px 0 0;}
+.youtube-box iframe{width:90%; max-width:560px; height:315px; border-radius:16px; box-shadow:0 8px 22px rgba(0,0,0,.25);}
+
+/* ===== Lời nhắn cuối ===== */
+.final-note{
+  text-align:center;
+  font-size:16px;
+  line-height:1.6;
+  color:#a12c62;
+  background:#ffe6f4;
+  border-top:2px dashed #ffb6d9;
+  margin-top:24px;
+  padding:22px 16px 40px;
+  border-radius:0 0 20px 20px;
+  box-shadow:inset 0 4px 12px rgba(255,150,190,.25);
+}
 </style>
 </head>
 <body>
-<div class="spark-bg"></div>
-
-<section class="postcard">
-  <header class="head">
-    <h1>HAPPY BIRTHDAY MY ANGEL!</h1>
-    <p>Wishing you a day as lovely as you are ฅ^&gt;⩊&lt;^ ฅ</p>
+<section class="card">
+  <header>
+    <h1>HAPPY BIRTHDAY MY ANGEL</h1>
+    <p class="sub">Wishing you a day as lovely as you are ฅ^&gt;⩊&lt;^ ฅ</p>
   </header>
 
-  <div class="hero"><img src="assets/dancing-cat-dance.gif" alt="dancing cat"></div>
-
-  <figure class="polaroid">
-    <img src="assets/Little Tinkerbell.jpg" alt="">
-    <figcaption>생일 축하합니다</figcaption>
-  </figure>
-
-  <div class="gift-wrap">
-    <div class="gift" id="gift">
-      <div class="lid"></div>
-      <div class="box"></div>
-      <div class="ribbon-v"></div>
-      <div class="ribbon-h"></div>
-    </div>
+  <div class="hero">
+    <img src="assets/dancing-cat-dance.gif" alt="dancing cat" />
   </div>
 
-  <div class="gallery" id="gallery"></div>
+  <!-- LỜI CHÚC -->
+  <section class="bless">
+    <p class="lead">
+      Chúc Hà Thanh không chỉ vui vào mỗi ngày sinh nhật, mà là cả tháng, cả năm và nhiều năm 🐎i 🐎i về sau ạ ( ˶˘ ³˘)♡
+    </p>
+    <ul class="wish-list">
+      <li><span class="tick">★</span>Và tuổi mới có thể:</li>
+      <li><span class="tick">✓</span>Làm sương sương, lương cũng cũng •ᴗ•</li>
+      <li><span class="tick">✓</span>Xăng đầy bình, xinh đầy mình •ᴗ•</li>
+      <li><span class="tick">✓</span>Chẳng cần cày nhiều hơn mỗi ngày vẫn có thể cười nhiều hơn mỗi ngày •ᴗ•</li>
+      <li><span class="tick">✓</span>Làm công tác phòng làm chủ •ᴗ•</li>
+      <li><span class="tick">✓</span>Nói trước bước qua luôn •ᴗ•</li>
+    </ul>
+  </section>
 
-  <div class="candle-section">
-    <h2 style="color:#fff;margin-bottom:10px;">Make a wish & blow the candle 🎂</h2>
-    <div class="candle-box" id="candleBox">
-      <div class="candle"><div class="flame" id="flame"></div></div>
+  <!-- GALLERY -->
+  <div class="scrollers">
+    <div class="scroller"><div class="track" id="track1"></div></div>
+    <div class="scroller slow"><div class="track" id="track2"></div></div>
+  </div>
+
+  <!-- CANDLE -->
+  <div class="candle-area">
+    <div class="candle-title">
+      Ba là cây nến vàng, mẹ là cây nến xanh, Hà Thanh thổi nến nhẹ nhàng thôi nha (˵ •̀ ᴗ - ˵ ) ✧
     </div>
-    <div class="wish-text" id="wishText">Wish granted 💖</div>
+    <div class="candle-box" id="candleBox">
+      <div class="candle" id="candle">
+        <div class="flame" id="flame"></div>
+        <div class="wick"></div>
+      </div>
+    </div>
+    <div class="wish-text" id="wishText">Wish granted (∩˃o˂∩)♡</div>
+  </div>
+
+  <!-- YouTube "Thư cho anh" -->
+  <div class="youtube-box">
+    <iframe src="https://www.youtube.com/embed/DydIIDQuhxU?si=7UcIXjHM-JeSBJHQ"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+  </div>
+
+  <!-- DÒNG NHẮN GỬI -->
+  <div class="final-note">
+    Sẽ luôn có người dịu dàng với Hà Thanh nên Hà Thanh hãy luôn dịu dàng với mình - và với mọi người nha ạ.<br/>
+    I meow you ૮ ྀིᴗ͈ . ᴗ͈ ྀིა
   </div>
 </section>
 
 <audio id="bgm" preload="auto">
-  <source src="assets/Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3" type="audio/mpeg">
+  <source src="assets/Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3" type="audio/mpeg" />
 </audio>
 
 <script>
-const bgm=document.getElementById('bgm');
-const gallery=document.getElementById('gallery');
-const gift=document.getElementById('gift');
-const colors=["#ffd166","#ef476f","#06d6a0","#118ab2","#ffe66d","#a78bfa","#fca5a5","#86efac","#fde68a"];
-
-const galleryFiles=[
+/* ===== Gallery ===== */
+const IMAGES = [
   "If u got issues, I got tissues.jpg",
   "Happy Birthday.jpg",
-  "Little Tinkerbell.jpg",
   "be kind to your mind.jpg",
   "nhảy nhảy.jpg"
 ];
-galleryFiles.forEach(name=>{
-  const img=new Image();
-  img.src=encodeURI("assets/"+name);
-  gallery.appendChild(img);
-});
+const colors = ["#ffd166","#ef476f","#06d6a0","#118ab2","#ffe66d","#a78bfa","#fca5a5","#86efac","#fde68a"];
+const track1 = document.getElementById('track1');
+const track2 = document.getElementById('track2');
+function renderTrack(track, list){
+  const frag = document.createDocumentFragment();
+  const repeatList = list.concat(list);
+  repeatList.forEach(name=>{
+    const img = new Image();
+    img.src = encodeURI("assets/" + name);
+    img.alt = name;
+    frag.appendChild(img);
+  });
+  track.appendChild(frag);
+}
+renderTrack(track1, IMAGES);
+renderTrack(track2, IMAGES.slice().reverse());
 
-gift.addEventListener('click',()=>{
-  gift.classList.toggle('open');
-  gallery.classList.add('show');
-  shootConfetti();
-  try{bgm.currentTime=0;bgm.volume=0.5;bgm.play();}catch(e){}
+/* ===== Candle ===== */
+const flame = document.getElementById('flame');
+const wishText = document.getElementById('wishText');
+document.getElementById('candleBox').addEventListener('click', ()=>{
+  flame.style.transition = 'opacity 1.1s ease, filter 1.1s ease';
+  flame.style.opacity = '0';
+  flame.style.filter  = 'blur(2px)';
+  smokeBurst();
+  shootConfetti(120);
+  wishText.classList.add('show');
 });
+function smokeBurst(){
+  for(let i=0;i<6;i++){
+    const s=document.createElement('div');
+    const x=(Math.random()*28 -14);
+    s.style.position='absolute';
+    s.style.top='-40px';
+    s.style.left='calc(50% + '+x+'px)';
+    s.style.width='14px';s.style.height='14px';
+    s.style.borderRadius='50%';
+    s.style.background='radial-gradient(circle at 40% 40%, #ffffffcc 0, #d4d4d4 40%, #0000 70%)';
+    s.style.opacity='0.9';
+    s.style.pointerEvents='none';
+    s.style.transform='translate(-50%,0)';
+    document.getElementById('candle').appendChild(s);
+    const up = -(40 + Math.random()*40);
+    const drift = (Math.random()*20 -10);
+    s.animate([
+      { transform:`translate(-50%,0)`, opacity:.9 },
+      { transform:`translate(calc(-50% + ${drift}px), ${up}px)`, opacity:0 }
+    ], {duration:1300+Math.random()*600, easing:'ease-out'}).onfinish=()=>s.remove();
+  }
+}
 
+/* ===== Confetti ===== */
 function shootConfetti(pieces=150){
   for(let i=0;i<pieces;i++){
     const c=document.createElement('div');
@@ -165,16 +272,6 @@ function shootConfetti(pieces=150){
     setTimeout(()=>c.remove(),6000);
   }
 }
-
-// Candle blow interaction
-const flame=document.getElementById('flame');
-const wishText=document.getElementById('wishText');
-document.getElementById('candleBox').addEventListener('click',()=>{
-  flame.style.transition='opacity 1s ease';
-  flame.style.opacity='0';
-  shootConfetti(120);
-  wishText.classList.add('show');
-});
 </script>
 </body>
 </html>
