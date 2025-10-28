@@ -1,215 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Birthday My Angel</title>
-  <style>
-    :root{
-      --bg1:#0f1021; --bg2:#1b1c3a;
-      --accent:#ffdd66; --text:#ffffff;
-      --card:#ffffff10; --border:#ffffff1a;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 600px at 10% 10%, #ffffff08 0%, transparent 60%),
-        radial-gradient(800px 400px at 90% 20%, #ffffff05 0%, transparent 60%),
-        linear-gradient(135deg,var(--bg1),var(--bg2));
-      display:grid; place-items:start center; overflow-x:hidden;
-      padding:34px 16px 70px;
-    }
-    .card{
-      text-align:center; padding:42px 28px;
-      width:min(92vw, 860px);
-      background:var(--card); border:1px solid var(--border);
-      border-radius:28px; backdrop-filter: blur(8px);
-      box-shadow: 0 10px 40px #00000055; animation: fadeIn .6s ease;
-      margin-inline:auto;
-    }
-    h1{
-      margin:0 0 8px;
-      font-size: clamp(26px, 7vw, 48px);
-      line-height:1.22; letter-spacing:.4px;
-      background: linear-gradient(90deg, #fff, #ffe7a6, #fff);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-shadow: 0 0 10px #fff2;
-    }
-    .sparkle{ display:inline-block; animation: sparkle 2.6s ease-in-out infinite; }
-    @keyframes sparkle{ 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.08);opacity:.85} }
-    p{ margin:8px 0 16px; opacity:.9; font-size:clamp(15px,3.2vw,19px) }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Happy Birthday My Angel!</title>
+<style>
+:root{
+  --bg1:#0f1021; --bg2:#1b1c3a;
+  --ink:#2b2b2b; --paper:#fffdfa;
+  --accent:#ffdd66; --rose:#ff7aa2; --blue:#5bc0ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:"Segoe UI",sans-serif}
+body{
+  color:#fff;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:grid;place-items:start center;
+  padding:40px 16px 160px;
+  overflow-x:hidden;
+}
+.spark-bg{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    radial-gradient(#ffffff15 2px,transparent 2px),
+    radial-gradient(#ffffff12 1px,transparent 1px);
+  background-size:120px 120px,200px 200px;
+  background-position:0 0,60px 40px;
+  animation:drift 25s linear infinite;
+}
+@keyframes drift{to{background-position:120px 120px,260px 240px}}
 
-    .actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px }
-    .btn{
-      appearance:none;border:0;cursor:pointer;
-      padding:12px 20px;border-radius:999px;
-      font-weight:700;font-size:16px;letter-spacing:.2px;
-      color:#1f2937;background:var(--accent);
-      box-shadow:0 6px 20px #ffd16655; transition:transform .05s ease;
-    }
-    .btn:active{ transform: translateY(1px) scale(.99); }
+.postcard{
+  width:min(95vw,980px);
+  background:var(--paper);color:var(--ink);
+  border-radius:24px;box-shadow:0 20px 60px #0006;
+  position:relative;overflow:hidden;
+  animation:fadeIn .6s ease;
+}
+.airmail::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,#ff6b6b 0 24px,#ff6b6b 24px 48px,#5bc0ff 48px 72px,#5bc0ff 72px 96px);
+  opacity:.4;
+}
+.head{text-align:center;padding:36px 24px 16px}
+.head h1{font-size:clamp(28px,6vw,48px);background:linear-gradient(90deg,#000,#6b5bc0,#000);
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.head p{margin-top:6px;font-size:clamp(15px,3vw,18px);opacity:.8}
 
-    /* cute images */
-    .sticker{
-      display:block; margin:10px auto 6px;
-      width:min(32vw,130px); height:auto;
-      filter: drop-shadow(0 6px 12px #00000030);
-      user-select:none; -webkit-user-drag:none;
-    }
-    .float{ animation: floaty 4.5s ease-in-out infinite; }
-    @keyframes floaty{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.hero{display:grid;place-items:center;padding:16px}
+.hero img{width:min(360px,80vw);border-radius:20px;animation:floaty 4s ease-in-out infinite;box-shadow:0 10px 30px #0004}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
-    /* Polaroid */
-    .polaroid{
-      width:min(80vw, 300px); margin:12px auto 2px; padding:10px 10px 16px;
-      background:#fff; color:#111; border-radius:12px;
-      box-shadow: 0 12px 34px #00000035;
-    }
-    .polaroid img{ width:100%; display:block; border-radius:10px; object-fit:cover; aspect-ratio:4/5; }
-    .polaroid figcaption{ margin-top:8px; text-align:center; font-size:14px; opacity:.7; }
+.polaroid{width:min(80vw,300px);margin:10px auto;background:#fff;color:#111;padding:10px;border-radius:12px;box-shadow:0 10px 30px #0003}
+.polaroid img{width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/5}
+.polaroid figcaption{text-align:center;margin-top:6px;font-size:14px;opacity:.7}
 
-    /* Gallery */
-    .gallery{
-      margin:24px auto 0; width:min(94vw, 980px);
-      display:grid; gap:12px;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    }
-    .gallery img{
-      width:100%; height:180px; object-fit:cover; border-radius:12px;
-      box-shadow:0 8px 20px #00000030; background:#222;
-    }
+.gift-wrap{display:grid;place-items:center;padding:14px 0}
+.gift{position:relative;width:130px;height:110px;cursor:pointer}
+.gift .box{position:absolute;bottom:0;width:100%;height:82px;background:#ffd166;border-radius:10px}
+.gift .lid{position:absolute;top:0;width:100%;height:42px;background:#ffe69c;border-radius:10px;transition:transform .5s ease}
+.gift .ribbon-v,.gift .ribbon-h{position:absolute;background:#ff7aa2}
+.gift .ribbon-v{width:18px;inset:0;margin:auto;border-radius:6px}
+.gift .ribbon-h{height:18px;width:100%;top:32px;border-radius:6px}
+.gift.open .lid{transform:rotate(-22deg) translate(10px,-22px)}
 
-    /* Confetti */
-    .confetti{
-      position:fixed; top:-12px; width:8px; height:5px; opacity:.9;
-      will-change: transform; pointer-events:none; animation: fall linear forwards;
-    }
-    @keyframes fall{ to{ transform: translateY(110vh) rotate(720deg); opacity:.95 } }
+.gallery{padding:0 20px 30px;display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));max-height:0;overflow:hidden;opacity:0;transition:all .6s ease}
+.gallery.show{max-height:2000px;opacity:1}
+.gallery img{width:100%;height:180px;object-fit:cover;border-radius:16px;background:#222;box-shadow:0 6px 15px #0004;animation:sway 6s ease-in-out infinite}
+.gallery img:nth-child(odd){animation-duration:7.2s}
+.gallery img:nth-child(3n){animation-duration:5.8s}
+@keyframes sway{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px) scale(1.02)}}
 
-    /* subtle star background */
-    .spark-bg{
-      position: fixed; inset:0; pointer-events:none; z-index:-1;
-      background-image:
-        radial-gradient(#ffffff0e 2px, transparent 2px),
-        radial-gradient(#ffffff0a 1px, transparent 1px);
-      background-size: 120px 120px, 200px 200px;
-      background-position: 0 0, 60px 40px;
-      animation: drift 25s linear infinite;
-    }
-    @keyframes drift{ to{ background-position: 120px 120px, 260px 240px; } }
-    @keyframes fadeIn{ from{opacity:0;transform:scale(.98)} to{opacity:1;transform:scale(1)} }
-  </style>
+.confetti{position:fixed;top:-12px;width:8px;height:5px;opacity:.9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@keyframes fadeIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+
+/* Candle Section */
+.candle-section{padding:50px 0 80px;text-align:center}
+.candle-box{position:relative;display:inline-block;margin-top:20px}
+.candle{width:40px;height:90px;background:#fff8dc;border-radius:6px;margin:auto;position:relative;box-shadow:inset 0 0 10px #0002}
+.flame{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:20px;height:30px;background:radial-gradient(ellipse at center,#ffb347 0%,#ffcc33 50%,#ffeb99 100%);border-radius:50% 50% 50% 50%;animation:flameMove .25s infinite alternate}
+@keyframes flameMove{0%{transform:translateX(-50%) scaleY(1)}100%{transform:translateX(-50%) scaleY(.9)}}
+.wish-text{opacity:0;transform:translateY(10px);transition:all .6s ease;margin-top:20px;color:#fff;font-weight:600;font-size:18px;}
+.wish-text.show{opacity:1;transform:translateY(0)}
+</style>
 </head>
 <body>
-  <div class="spark-bg" aria-hidden="true"></div>
+<div class="spark-bg"></div>
 
-  <main class="card" role="main">
-    <h1>
-      HAPPY BIRTHDAY MY ANGEL
-      <span class="sparkle">(*ᴗ͈ˬᴗ͈)ꕤ*.ﾟ</span>
-    </h1>
+<section class="postcard">
+  <header class="head">
+    <h1>HAPPY BIRTHDAY MY ANGEL!</h1>
     <p>Wishing you a day as lovely as you are ฅ^&gt;⩊&lt;^ ฅ</p>
+  </header>
 
-    <!-- emoji line -->
-    <div style="font-size:clamp(20px,5vw,34px);margin:4px 0 8px;">😺 ✨ 🎂 💖</div>
+  <div class="hero"><img src="assets/dancing-cat-dance.gif" alt="dancing cat"></div>
 
-    <!-- cat sticker -->
-    <img id="catSticker" class="sticker float" alt="cute cat"/>
+  <figure class="polaroid">
+    <img src="assets/Little Tinkerbell.jpg" alt="">
+    <figcaption>생일 축하합니다</figcaption>
+  </figure>
 
-    <!-- your photo -->
-    <figure class="polaroid">
-      <img id="myPhoto" alt="my photo"/>
-      <figcaption>me + happy vibes</figcaption>
-    </figure>
-
-    <div class="actions">
-      <button class="btn" id="wishBtn">Make a wish 🎂</button>
-      <button class="btn" id="musicBtn">🔈 Music</button>
+  <div class="gift-wrap">
+    <div class="gift" id="gift">
+      <div class="lid"></div>
+      <div class="box"></div>
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
     </div>
-  </main>
+  </div>
 
-  <!-- background music -->
-  <audio id="bgm" preload="auto"></audio>
+  <div class="gallery" id="gallery"></div>
 
-  <!-- Auto gallery of all uploaded images -->
-  <section class="gallery" id="gallery"></section>
+  <div class="candle-section">
+    <h2 style="color:#fff;margin-bottom:10px;">Make a wish & blow the candle 🎂</h2>
+    <div class="candle-box" id="candleBox">
+      <div class="candle"><div class="flame" id="flame"></div></div>
+    </div>
+    <div class="wish-text" id="wishText">Wish granted 💖</div>
+  </div>
+</section>
 
-  <script>
-    // ====== FILE NAMES from your screenshot ======
-    const musicName = "Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3";
-    const stickerFile = "làm mèo hok.jpg";            // mèo cute
-    const myPhotoFile = "Little Tinkerbell.jpg";      // ảnh của bạn
+<audio id="bgm" preload="auto">
+  <source src="assets/Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3" type="audio/mpeg">
+</audio>
 
-    // All gallery images (you can add/remove freely)
-    const galleryFiles = [
-      "If u got issues, I got tissues.jpg",
-      "Happy Birthday.jpg",
-      "Little Tinkerbell.jpg",
-      "Oatmilk.jpg",
-      "làm mèo hok.jpg",
-      "nhảy nhảy.jpg",
-      "Thắng làm vua.jpg",
-      "Anh bò cười siêng năng.jpg",
-      "you're alright.jpg",
-      "be kind to your mind.jpg"
-    ];
+<script>
+const bgm=document.getElementById('bgm');
+const gallery=document.getElementById('gallery');
+const gift=document.getElementById('gift');
+const colors=["#ffd166","#ef476f","#06d6a0","#118ab2","#ffe66d","#a78bfa","#fca5a5","#86efac","#fde68a"];
 
-    // ====== Set sources with encodeURI to support spaces, emoji, accents, apostrophes ======
-    const bgm = document.getElementById('bgm');
-    bgm.src = encodeURI("assets/" + musicName);
+const galleryFiles=[
+  "If u got issues, I got tissues.jpg",
+  "Happy Birthday.jpg",
+  "Little Tinkerbell.jpg",
+  "be kind to your mind.jpg",
+  "nhảy nhảy.jpg"
+];
+galleryFiles.forEach(name=>{
+  const img=new Image();
+  img.src=encodeURI("assets/"+name);
+  gallery.appendChild(img);
+});
 
-    const catSticker = document.getElementById('catSticker');
-    catSticker.src = encodeURI("assets/" + stickerFile);
+gift.addEventListener('click',()=>{
+  gift.classList.toggle('open');
+  gallery.classList.add('show');
+  shootConfetti();
+  try{bgm.currentTime=0;bgm.volume=0.5;bgm.play();}catch(e){}
+});
 
-    const myPhoto = document.getElementById('myPhoto');
-    myPhoto.src = encodeURI("assets/" + myPhotoFile);
+function shootConfetti(pieces=150){
+  for(let i=0;i<pieces;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    const size=6+Math.random()*6;
+    c.style.width=size+'px';
+    c.style.height=(size*0.6)+'px';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=(3+Math.random()*2)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),6000);
+  }
+}
 
-    // ====== Build gallery ======
-    const gallery = document.getElementById('gallery');
-    galleryFiles.forEach(name => {
-      const img = new Image();
-      img.loading = "lazy";
-      img.alt = name;
-      img.src = encodeURI("assets/" + name);
-      gallery.appendChild(img);
-    });
-
-    // ====== Confetti + Music controls ======
-    const btn = document.getElementById('wishBtn');
-    const musicBtn = document.getElementById('musicBtn');
-
-    const colors = ["#ffd166","#ef476f","#06d6a0","#118ab2","#ffe66d","#a78bfa","#fca5a5","#86efac","#fde68a"];
-
-    function shootConfetti(pieces = 200){
-      for(let i=0;i<pieces;i++){
-        const c = document.createElement('div');
-        c.className = 'confetti';
-        const size = 6 + Math.random()*6;
-        c.style.width = size+'px';
-        c.style.height = (size*0.6)+'px';
-        c.style.left = Math.random()*100 + 'vw';
-        c.style.background = colors[Math.floor(Math.random()*colors.length)];
-        c.style.transform = `translateY(0) rotate(${Math.random()*360}deg)`;
-        c.style.animationDuration = (3 + Math.random()*2) + 's';
-        c.style.animationDelay = (Math.random()*0.2)+'s';
-        c.style.borderRadius = (Math.random()>.5? '2px':'50%');
-        document.body.appendChild(c);
-        setTimeout(()=> c.remove(), 6000);
-      }
-    }
-
-    btn.addEventListener('click', () => {
-      shootConfetti();
-      try { bgm.currentTime = 0; bgm.volume = 0.5; bgm.play(); } catch(e) {}
-    });
-
-    musicBtn.addEventListener('click', async () => {
-      if(bgm.paused){ await bgm.play(); musicBtn.textContent='🔊 Music'; }
-      else { bgm.pause(); musicBtn.textContent='🔈 Music'; }
-    });
-  </script>
+// Candle blow interaction
+const flame=document.getElementById('flame');
+const wishText=document.getElementById('wishText');
+document.getElementById('candleBox').addEventListener('click',()=>{
+  flame.style.transition='opacity 1s ease';
+  flame.style.opacity='0';
+  shootConfetti(120);
+  wishText.classList.add('show');
+});
+</script>
 </body>
 </html>
