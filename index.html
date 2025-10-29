@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>🎂</title>
 
   <!-- Disable link preview -->
@@ -11,215 +11,364 @@
   <meta property="og:image" content=" " />
   <meta name="twitter:card" content="none" />
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: "Comic Sans MS", cursive;
-      text-align: center;
-      background: linear-gradient(180deg, #ffe6f0, #ffd6eb);
-      color: #ff66a3;
-      overflow-x: hidden;
+    :root{
+      --pink-1:#ffe6f0;
+      --pink-2:#ffd6eb;
+      --pink-3:#ff66a3;
+      --pink-4:#ff8fb3;
+      --ink:#ff4d94;
+      --card:#fff7fb;
+      --shadow:0 6px 16px rgba(255,105,180,.25);
+      --radius:18px;
+      --maxw:1100px;
     }
 
-    h1 {
-      font-size: 3em;
-      color: #ff66a3;
-      font-weight: 800;
-      letter-spacing: 2px;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      text-align:center;
+      background: linear-gradient(180deg, var(--pink-1), var(--pink-2));
+      color: var(--ink);
+      overflow-x:hidden;
+      line-height:1.6;
     }
 
-    h2 {
-      margin-top: -10px;
-      font-weight: 400;
-      color: #ff8fb3;
+    /* Top-left tag */
+    .corner-tag{
+      position:fixed; left:14px; top:12px; z-index:1000;
+      background:rgba(255,255,255,.6); backdrop-filter: blur(6px);
+      padding:8px 12px; border-radius:999px; box-shadow:var(--shadow);
+      font-weight:600; font-size:14px;
     }
 
-    .gallery {
-      display: flex;
-      overflow: hidden;
-      width: 100%;
-      margin-top: 30px;
+    .container{max-width:var(--maxw); margin:0 auto; padding:24px 16px}
+    .section{padding:32px 0}
+    .card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px}
+
+    /* HERO (mới) */
+    .hero{
+      display:grid; gap:24px; align-items:center;
+      grid-template-columns: 1fr; 
+    }
+    .hero .media img{
+      width:100%; max-width:420px; border-radius:20px; box-shadow:var(--shadow)
+    }
+    .hero .copy{ text-align:left; max-width:680px; margin:0 auto}
+    .hero h3{ margin:0 0 6px; font-weight:800; font-size:28px; color:var(--ink)}
+    .hero p{ margin:8px 0 0; font-size:16px}
+    .countdown{margin-top:12px; font-weight:700}
+
+    @media(min-width:900px){
+      .hero{grid-template-columns: 420px 1fr}
+      .hero .copy{ margin:0}
+    }
+
+    /* Original heading keeps Comic Sans */
+    h1,h2{font-family:"Comic Sans MS", cursive}
+    h1{ font-size: clamp(28px, 4vw, 48px); color: var(--pink-3); font-weight:800; letter-spacing:1px; margin:8px 0 2px}
+    h2{ margin-top:0; font-weight:400; color: var(--pink-4); font-size: clamp(16px, 2.2vw, 22px)}
+
+    /* Gallery */
+    .gallery-wrap{overflow:hidden}
+    .gallery{
+      display:flex; gap:12px; width:max-content; margin:22px auto 0; 
       animation: scroll 25s linear infinite;
     }
+    .gallery img{
+      height:200px; width:auto; border-radius:15px; box-shadow:var(--shadow);
+      animation: floaty 3s ease-in-out infinite; will-change: transform;
+    }
+    @keyframes scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes floaty{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
-    .gallery img {
-      height: 200px;
-      width: auto;
-      margin: 0 10px;
-      border-radius: 15px;
-      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.3);
-      animation: floaty 3s ease-in-out infinite;
+    @media (prefers-reduced-motion: reduce){
+      .gallery{animation:none}
+      .gallery img{animation:none}
     }
 
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+    .gif-container img{
+      width:min(260px, 70vw);
+      margin-top:24px;
+      border-radius:20px;
+      box-shadow:0 0 25px rgba(255, 192, 203, 0.6);
     }
 
-    @keyframes floaty {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    .wish{ font-size:16px; margin:22px auto; color: var(--ink); width:min(85%, 820px)}
+    .wish p{margin:.4em 0}
+
+    /* Candle */
+    .candle-section{ margin-top:30px; background:var(--card); padding:44px 0; border-top-left-radius:50px; border-top-right-radius:50px; box-shadow:0 -5px 20px rgba(255,182,193,.3) }
+    .candle{ position:relative; width:40px; height:80px; background:#fff0f5; border-radius:10px; margin:26px auto; box-shadow:0 0 10px rgba(255,150,180,.5)}
+    .flame{
+      position:absolute; top:-25px; left:50%; transform:translateX(-50%);
+      width:25px; height:25px; background: radial-gradient(circle, #ffd966, #ffb347, #ff7b00);
+      border-radius:50%; box-shadow:0 0 30px 10px rgba(255,184,108,.6);
+      animation:flicker .25s infinite alternate;
+    }
+    @keyframes flicker{ 0%{ transform:translateX(-50%) scale(1); opacity:.9 } 100%{ transform:translateX(-48%) scale(1.1); opacity:1 } }
+    #message{ font-size:16px; font-weight:700; margin-top:6px; color: var(--pink-3) }
+
+    /* Gift box + balloons */
+    .gift-section{padding:30px 0 10px}
+    .gift-wrap{display:flex; flex-direction:column; align-items:center; gap:10px}
+    .gift{
+      width:160px; height:120px; background:#ff9dc6; border-radius:12px; position:relative; box-shadow:var(--shadow); cursor:pointer;
+    }
+    .gift:before{ /* ribbon vertical */
+      content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
+      width:18px; height:100%; background:#ff4d94; border-radius:6px;
+    }
+    .gift:after{ /* ribbon horizontal */
+      content:""; position:absolute; left:0; top:52%; transform:translateY(-50%);
+      width:100%; height:18px; background:#ff4d94; border-radius:6px;
+    }
+    .lid{
+      position:absolute; left:-6px; top:-28px; width:172px; height:36px; background:#ffa9d0;
+      border-radius:12px; box-shadow:var(--shadow); transform-origin:left bottom; transition: transform .45s ease;
+    }
+    .gift.open .lid{ transform: rotate(-22deg) translate(-6px,-8px) }
+
+    .balloons{ position:relative; width:100%; height:0; }
+    .balloon{
+      position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+      width:26px; height:34px; border-radius:50% 50% 50% 50%/ 60% 60% 40% 40%;
+      background:#ffd166; opacity:0; animation: rise 2.8s ease-in forwards;
+      filter:drop-shadow(0 6px 10px rgba(0,0,0,.1));
+    }
+    .balloon:after{ content:""; position:absolute; left:50%; bottom:-18px; transform:translateX(-50%); width:2px; height:22px; background:rgba(0,0,0,.15) }
+    @keyframes rise{
+      0%{ transform:translate(-50%, 20px) scale(.9); opacity:0 }
+      12%{ opacity:1 }
+      100%{ transform:translate(-50%, -220px) scale(1.05); opacity:0 }
     }
 
-    .gif-container img {
-      width: 260px;
-      margin-top: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(255, 192, 203, 0.6);
+    /* Playlist + text */
+    .split{
+      display:grid; gap:16px; grid-template-columns: 1fr; text-align:left
+    }
+    .split .left, .split .right{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px }
+    @media(min-width:900px){ .split{ grid-template-columns: 1.1fr 1fr } }
+
+    iframe{
+      width:100%; border:0; border-radius:12px; box-shadow:0 0 15px rgba(255,105,180,.25)
     }
 
-    .wish {
-      font-size: 1.1em;
-      margin: 25px auto;
-      color: #ff4d94;
-      width: 85%;
-      line-height: 1.7em;
-    }
+    footer{ margin: 40px 0 70px; font-size:16px; color: var(--ink) }
 
-    .candle-section {
-      margin-top: 40px;
-      background: #fff7fb;
-      padding: 60px 0;
-      border-top-left-radius: 50px;
-      border-top-right-radius: 50px;
-      box-shadow: 0 -5px 20px rgba(255, 182, 193, 0.3);
-    }
-
-    .candle {
-      position: relative;
-      width: 40px;
-      height: 80px;
-      background: #fff0f5;
-      border-radius: 10px;
-      margin: 30px auto;
-      box-shadow: 0 0 10px rgba(255, 150, 180, 0.5);
-    }
-
-    .flame {
-      position: absolute;
-      top: -25px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 25px;
-      height: 25px;
-      background: radial-gradient(circle, #ffd966, #ffb347, #ff7b00);
-      border-radius: 50%;
-      box-shadow: 0 0 30px 10px rgba(255, 184, 108, 0.6);
-      animation: flicker 0.25s infinite alternate;
-    }
-
-    @keyframes flicker {
-      0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
-      100% { transform: translateX(-48%) scale(1.1); opacity: 1; }
-    }
-
-    #message {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 10px;
-      color: #ff66a3;
-    }
-
-    .music-btn {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 50;
-      border: none;
-      border-radius: 999px;
-      padding: 10px 14px;
-      background: linear-gradient(135deg,#ff4d94,#ff8fb3);
-      color:#fff;
-      font-weight:700;
-      box-shadow:0 10px 18px rgba(255,77,148,.35);
-      cursor:pointer;
-      transition:.2s transform;
+    /* Music button */
+    .music-btn{
+      position: fixed; right: 16px; bottom: 16px; z-index: 50; border: none; border-radius: 999px; padding: 10px 14px;
+      background: linear-gradient(135deg,#ff4d94,#ff8fb3); color:#fff; font-weight:700; box-shadow:0 10px 18px rgba(255,77,148,.35);
+      cursor:pointer; transition:.2s transform;
     }
     .music-btn[aria-pressed="true"]{filter:saturate(1.15)}
     .music-btn:active{transform:scale(.98)}
 
-    iframe {
-      margin-top: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+    /* Horizontal music links */
+    .music-links{
+      display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:10px
     }
-
-    footer {
-      margin: 40px 0;
-      font-size: 1.1em;
-      color: #ff4d94;
-      line-height: 1.6em;
+    .music-links a{
+      background:var(--card); padding:10px 14px; border-radius:999px; box-shadow:var(--shadow); text-decoration:none; color:var(--ink); font-weight:600
     }
   </style>
 </head>
-
 <body>
-  <h1>HAPPY BIRTHDAY MY ANGEL</h1>
-  <h2>Wishing you a day as lovely as you are ฅ^>⩊<^ ฅ</h2>
 
-  <div class="gallery">
-    <img src="assets/be kind to your mind.jpg" alt="kind mind">
-    <img src="assets/If u got issues, I got tissues.jpg" alt="tissues">
-    <img src="assets/Happy Birthday.jpg" alt="birthday">
-    <img src="assets/Little Tinkerbell.jpg" alt="tinkerbell">
-    <img src="assets/be kind to your mind.jpg" alt="kind mind">
-    <img src="assets/If u got issues, I got tissues.jpg" alt="tissues">
-  </div>
+  <!-- góc trái -->
+  <div class="corner-tag">From Tinkerbell with luv</div>
 
-  <div class="gif-container">
-    <img src="assets/dancing-cat-dance.gif" alt="dancing cat" />
-  </div>
+  <!-- HERO mới -->
+  <section class="container section hero">
+    <div class="media">
+      <!-- Thay ảnh này bằng file bạn thêm vào assets -->
+      <img src="assets/ThienViTinkerbell.jpg" alt="Thiên Vi Tinkerbell" loading="lazy">
+    </div>
+    <div class="copy">
+      <h3>Chúng ta đã cùng trải qua một hành trình (không dài lắm mà cũng không ngắn lắm) và ọ oẹ nhau hơi nhiều, nhỉ?</h3>
+      <p>Cùng đếm ngược đến ngày sinh nhật Hà Thanh nhoé ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</p>
+      <div class="countdown" id="countdown">Đếm ngược: …</div>
+      <!-- Ghi chú: chỉnh ngày sinh bên dưới trong JS (const BIRTHDAY = '2025-12-31') -->
+    </div>
+  </section>
 
-  <div class="wish">
-    <p>Chúc Hà Thanh không chỉ vui vào mỗi ngày sinh nhật, mà là cả tháng, cả năm và nhiều năm 🐎i 🐎i về sau ạ ( ˶˘ ³˘)♡</p>
-    <p>Và tuổi mới có thể:</p>
-    <p>• Làm sương sương, lương cũng cũng •ᴗ•<br>
-    • Xăng đầy bình, xinh đầy mình •ᴗ•<br>
-    • Chẳng cần cày nhiều hơn mỗi ngày vẫn có thể cười nhiều hơn mỗi ngày •ᴗ•<br>
-    • Làm công tác phong làm chủ •ᴗ•<br>
-    • Nói trước bước qua luôn •ᴗ•</p>
-  </div>
+  <!-- Phần site cũ (được giữ lại & tối ưu) -->
+  <main id="oldSite" class="container section">
+    <h1>HAPPY BIRTHDAY MY ANGEL</h1>
+    <h2>Wishing you a day as lovely as you are ฅ^>⩊<^ ฅ</h2>
 
-  <div class="candle-section">
-    <div id="message">Ba là cây nến vàng, mẹ là cây nến xanh, Hà Thanh thổi nến nhẹ nhàng thôi nha (˵ •̀ ᴗ - ˵ ) ✧</div>
-    <div class="candle"><div class="flame"></div></div>
-  </div>
+    <div class="gallery-wrap">
+      <div class="gallery" aria-hidden="true">
+        <!-- Chỉ 3 loại ảnh, bỏ "Little Tinkerbell" -->
+        <img src="assets/be kind to your mind.jpg" alt="be kind to your mind" loading="lazy">
+        <img src="assets/If u got issues, I got tissues.jpg" alt="if u got issues, I got tissues" loading="lazy">
+        <img src="assets/Happy Birthday.jpg" alt="Happy Birthday" loading="lazy">
+        <!-- lặp lại để tạo dải scroll -->
+        <img src="assets/be kind to your mind.jpg" alt="" loading="lazy">
+        <img src="assets/If u got issues, I got tissues.jpg" alt="" loading="lazy">
+        <img src="assets/Happy Birthday.jpg" alt="" loading="lazy">
+      </div>
+    </div>
 
-  <iframe width="320" height="180"
-    src="https://www.youtube.com/embed/DydIIDQuhxU?si=7UcIXjHM-JeSBJHQ"
-    title="Thư cho anh"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-  </iframe>
+    <div class="gif-container">
+      <img src="assets/dancing-cat-dance.gif" alt="dancing cat" loading="lazy" />
+    </div>
 
-  <footer>
-    <p>Wish granted (∩˃o˂∩)♡</p>
-    <p>Sẽ luôn có người dịu dàng với Hà Thanh nên Hà Thanh hãy luôn dịu dàng với mình — và với mọi người nha ạ. I meow you ૮ ྀིᴗ͈ . ᴗ͈ ྀིა</p>
-  </footer>
+    <div class="wish card">
+      <p>Chúc Hà Thanh không chỉ vui vào mỗi ngày sinh nhật, mà là cả tháng, cả năm và nhiều năm 🐎i 🐎i về sau ạ ( ˶˘ ³˘)♡</p>
+      <p>Và tuổi mới có thể:</p>
+      <p>• Làm sương sương, lương cũng cũng •ᴗ•<br>
+      • Xăng đầy bình, xinh đầy mình •ᴗ•<br>
+      • Chẳng cần cày nhiều hơn mỗi ngày vẫn có thể cười nhiều hơn mỗi ngày •ᴗ•<br>
+      • Làm công tác phong làm chủ •ᴗ•<br>
+      • Nói trước bước qua luôn •ᴗ•</p>
+    </div>
+
+    <div class="candle-section">
+      <div id="message">Ba là cây nến vàng, mẹ là cây nến xanh, Hà Thanh thổi nến nhẹ nhàng thôi nha (˵ •̀ ᴗ - ˵ ) ✧</div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+
+    <!-- Hộp quà hồng + Balloon -->
+    <section class="gift-section container">
+      <div class="gift-wrap">
+        <div class="gift" id="gift">
+          <div class="lid"></div>
+        </div>
+        <div class="balloons" id="balloons" aria-hidden="true"></div>
+        <div style="margin-top:8px; font-weight:600">Tinkerbell đang trên đường ship đến, quý khách</div>
+      </div>
+    </section>
+
+    <!-- Google Calendar embed (thay src bằng link embed public calendar của bạn) -->
+    <section class="container section">
+      <h3 style="margin:0 0 14px; font-weight:800">Lịch của tụi mình</h3>
+      <div class="card">
+        <iframe
+          title="Google Calendar"
+          style="min-height:540px"
+          src="https://calendar.google.com/calendar/embed?src=your_public_calendar_id%40group.calendar.google.com&ctz=Asia%2FHo_Chi_Minh">
+        </iframe>
+        <!-- Hướng dẫn: Vào Google Calendar > Settings > Settings for my calendars > Integrate calendar > dùng link Embed (public) -->
+      </div>
+    </section>
+
+    <!-- Đoạn vui vẻ -->
+    <section class="container section">
+      <div class="card" style="text-align:left">
+        <p>Đọc đến đây, người đã bắt đầu smile chưa nhỉ? Chắc chắn là có luôn ^.^ Đó, nên là làm người khác - đặc biệt là con gái cười khom khó đâu, chỉ cần mình đừng khó chịu với người ta là người ta dễ chịu với mình liền ò. Nên là đừng ọ oẹ với Thiên Vi nữa nha. Thiên Vi còn dỗi nên mới nhờ Tinkerbell code tặng Hà Thanh chiếc web này đó ạ (╥﹏╥)</p>
+      </div>
+    </section>
+
+    <!-- Playlist trái / text phải -->
+    <section class="container section split">
+      <div class="left">
+        <h3 style="margin:0 0 10px; font-weight:800">Playlist của tụi mình</h3>
+        <iframe width="560" height="315"
+          src="https://www.youtube.com/embed/videoseries?list=PLz301c-yfQZ8YEHu6Jn-g9q8KxXaveREV"
+          title="YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
+      </div>
+      <div class="right">
+        <h3 style="margin:0 0 10px; font-weight:800">Mình cùng look back một chút không nhỉ?</h3>
+        <p>Thiên Vi có chiếc playlist này từ hồi tháng 1 - chắc là nó lookback được cả journey của tụi mình luôn rồi ạ</p>
+      </div>
+    </section>
+
+    <!-- Confession -->
+    <section class="container section">
+      <div class="card" style="text-align:left">
+        <h3 style="margin:0 0 10px; font-weight:800">Confession</h3>
+        <p>Còn đây là những điều đơn giản, không cầu kỳ mà Thiên Vi muốn nhắn nhủ: </p>
+        <p> Cảm ơn người vì đã mang đến cho em rất nhiều những cảm xúc và cả suy nghĩ, trải nghiệm - mà em chưa từng có bao giờ. Có thể Hà Thanh thấy em cũng giỏi, cũng làm được nhiều thứ, nhưng, em cũng chỉ là người bình thường, vẫn có rất nhiều hạn chế và vẫn chông chênh mỗi ngày - ý là vẫn nằm suy nghĩ và cũng chẳng biết phải làm gì tiếp theo. Mấy tháng gần đây em rảnh hơn nhiều và còn thấy mình ngốc đi nữa. Giỏi giang âu cũng chỉ là cái mác đẹp đẽ mà mọi người hay gán cho ta thôi, chứ điều mà em có thực ra chỉ là sự chân thành và tử tế, tận tâm này. Tuổi mới đừng khóc nhiều nhoé. Từ lần đầu em thấy người khóc, em đã tự hứa với lòng là nếu em còn ở cạnh người, em sẽ không để người phải khóc vì những uất ức đó nữa. Bây giờ và sau này chắc sẽ có người khác thay em làm điều này rồi, nên chỉ mong người cười nhiều hơn thôi. Niềm vui vốn dĩ đơn giản như khi mình xem meme, lướt web, thấy chiếc tin nhắn quan tâm hay là ngắm hoàng hôn mỗi chiều - kiểu vậy, nhỉ? Thật vui khi thấy story của Hà Thanh là những buổi chiều hoàng hôn và những buổi sáng đi làm trên metro đấy ạ. Ngày đấy, khi thấy người lướt xem điện thoại, rồi nhìn sang xung quanh team mình cũng hay thế, em đã nghĩ: Ôi *lắc đầu*. Thiên Vi mà người thấy luôn hustle thực ra nó cũng chỉ thích ngắm mưa, nhìn trời, nựng mèo và rung cảm với tất cả mọi thứ nhỏ nhất diễn ra mọi ngày thôi người ạ. Sự có mặt trọn vẹn là điều tốt nhất mà em có thể dành cho người (lần đó có share bài này về tag mà chắc người quên rồi quá hoặc là hỏng xem luôn éc). Ai cũng có những điều đẹp đẽ để mình nhìn vào đó mà cảm thông cho họ hơn. Nên là: hãy luôn dịu dàng với chính mình và dịu dàng với cả vết thương của người khác nha angel ơi *biến mất cùng làn khói* </p>
+      </div>
+    </section>
+
+    <!-- Nhạc cuối trang -->
+    <section class="container section">
+      <h3 style="margin:0 0 10px; font-weight:800">Lúc nào chán quá thì mình nghe nhạc, còn chán hơn nữa thì mình xem phim…</h3>
+      <p>Chắc người thông minh aka Nguyễn Hà Thanh sẽ thích “Inception” - poor vì chúng ta không có cơ hội xem cùng hẹ hẹ. Đời này thi vị lắm, chúc người enjoy nhiều nha ạ ^.^</p>
+      <div class="music-links">
+        <a href="https://www.youtube.com/watch?v=DydIIDQuhxU&list=RDDydIIDQuhxU&start_radio=1" target="_blank" rel="noopener">Thư cho anh</a>
+        <a href="https://www.youtube.com/watch?v=A8-ENEqhQjg" target="_blank" rel="noopener">Every day, Every Moment</a>
+        <a href="https://www.youtube.com/watch?v=YoHD9XEInc0" target="_blank" rel="noopener">Inception</a>
+      </div>
+    </section>
+
+    <!-- Video (giữ từ bản cũ, có thể bỏ nếu đã có playlist trên) -->
+    <section class="container section" hidden>
+      <iframe width="560" height="315"
+        src="https://www.youtube.com/embed/DydIIDQuhxU?si=7UcIXjHM-JeSBJHQ"
+        title="Thư cho anh"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+      </iframe>
+    </section>
+
+    <footer class="container">
+      <p>Wish granted (∩˃o˂∩)♡</p>
+      <p>Sẽ luôn có người dịu dàng với Hà Thanh nên Hà Thanh hãy luôn dịu dàng với mình — và với mọi người nha ạ. I meow you ૮ ྀིᴗ͈ . ᴗ͈ ྀིა</p>
+    </footer>
+  </main>
 
   <!-- Music -->
   <audio id="bgm" preload="auto" loop></audio>
-  <button id="musicBtn" class="music-btn" aria-pressed="false">♫ Music</button>
+  <button id="musicBtn" class="music-btn" aria-pressed="false" aria-label="Toggle music">♫ Music</button>
 
   <script>
+  // ====== Config dễ chỉnh ======
+  // 1) Đặt ngày sinh ở đây (YYYY-MM-DD):
+  const BIRTHDAY = '2025-12-31';
+  // 2) Đường dẫn nhạc:
+  const MUSIC_SRC = 'assets/Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3';
+
+  // ====== Countdown ======
+  const cdEl = document.getElementById('countdown');
+  function updateCountdown(){
+    try{
+      const now = new Date();
+      const target = new Date(BIRTHDAY + 'T00:00:00');
+      const diff = target - now;
+      if(diff <= 0){
+        cdEl.textContent = 'Hôm nay là sinh nhật rồi! 🎉';
+        return;
+      }
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff / (1000*60*60)) % 24);
+      const mins = Math.floor((diff / (1000*60)) % 60);
+      cdEl.textContent = `Còn ${days} ngày ${hours} giờ ${mins} phút`;
+    }catch(e){}
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60*1000);
+
+  // ====== Music autoplay on first interaction (scroll/touch/keypress/move) ======
   const bgm = document.getElementById('bgm');
   const musicBtn = document.getElementById('musicBtn');
-
-  bgm.src = encodeURI('assets/Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3');
+  bgm.src = encodeURI(MUSIC_SRC);
   bgm.volume = 0.6;
 
-  const unlock = async () => {
-    try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); }
-    catch(e){}
-    ['click','touchstart','keydown','scroll'].forEach(ev => window.removeEventListener(ev, unlock));
+  const firstUnlock = async () => {
+    try { 
+      await bgm.play(); 
+      musicBtn.setAttribute('aria-pressed','true'); 
+    } catch(e) {}
+    ['click','touchstart','keydown','scroll','pointermove'].forEach(ev => window.removeEventListener(ev, firstUnlock, {passive:true}));
   };
-  ['click','touchstart','keydown','scroll'].forEach(ev => window.addEventListener(ev, unlock));
+  ['click','touchstart','keydown','scroll','pointermove'].forEach(ev => window.addEventListener(ev, firstUnlock, {passive:true, once:false}));
 
   musicBtn.addEventListener('click', async () => {
     if (bgm.paused) {
-      try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); }
-      catch(e){}
+      try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); } catch(e){}
     } else {
       bgm.pause(); musicBtn.setAttribute('aria-pressed','false');
     }
@@ -228,6 +377,39 @@
   document.addEventListener('visibilitychange', async () => {
     if (!document.hidden && musicBtn.getAttribute('aria-pressed') === 'true' && bgm.paused) {
       try { await bgm.play(); } catch(e){}
+    }
+  });
+
+  // ====== Gift box & balloons ======
+  const gift = document.getElementById('gift');
+  const balloons = document.getElementById('balloons');
+  let opened = false;
+
+  function spawnBalloon(i){
+    const b = document.createElement('span');
+    b.className = 'balloon';
+    const hues = ['#ffd166', '#a0c4ff', '#bdb2ff', '#caffbf', '#ffc6ff', '#fdffb6', '#ffadad'];
+    b.style.background = hues[i % hues.length];
+    b.style.left = (30 + Math.random()*40) + '%';
+    b.style.animationDelay = (Math.random()*0.4) + 's';
+    b.style.width = (22 + Math.random()*10) + 'px';
+    b.style.height = (30 + Math.random()*12) + 'px';
+    balloons.appendChild(b);
+    setTimeout(()=> b.remove(), 3200);
+  }
+
+  gift.addEventListener('click', ()=>{
+    if(!opened){
+      gift.classList.add('open');
+      opened = true;
+      for(let i=0;i<14;i++){
+        setTimeout(()=>spawnBalloon(i), i*120);
+      }
+    } else {
+      // lần sau bấm lại cho vui: spawn nhẹ vài bóng
+      for(let i=0;i<6;i++){
+        setTimeout(()=>spawnBalloon(i), i*140);
+      }
     }
   });
   </script>
