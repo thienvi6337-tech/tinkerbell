@@ -26,7 +26,7 @@
       line-height:1.65; overflow-x:hidden; text-align:center; position:relative;
     }
 
-    /* nền icon */
+    /* nền icon động */
     .bg-decor{pointer-events:none; position:fixed; inset:0; z-index:-1; overflow:hidden; opacity:.25; font-size:22px}
     .bg-decor span{position:absolute; animation:drift 14s linear infinite; filter:blur(.2px)}
     @keyframes drift{from{transform:translateY(110vh)} to{transform:translateY(-15vh)}}
@@ -42,10 +42,7 @@
     .hero .img-wrap{width:100%; max-width:420px; aspect-ratio:3/4; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); background:linear-gradient(180deg,#ffddea,#ffeaf3)}
     .hero img{width:100%; height:100%; object-fit:cover; display:block}
     .hero .copy{text-align:left; max-width:680px; margin:0 auto}
-    .hero .label{ /* UPDATED: SWEET LETTER label */
-      display:inline-block; padding:6px 12px; border-radius:999px; background:#ffe5f3; font-weight:800; margin-bottom:8px; box-shadow:var(--shadow);
-      letter-spacing:.5px;
-    }
+    .hero .label{display:inline-block; padding:6px 12px; border-radius:999px; background:#ffe5f3; font-weight:800; margin-bottom:8px; box-shadow:var(--shadow); letter-spacing:.5px}
     .hero h3{margin:4px 0 6px; font-weight:800; font-size:28px}
     .hero p{margin:8px 0 0}
     .countdown{margin-top:12px; font-weight:800; font-size:clamp(18px,3vw,32px); color:var(--pink-3)}
@@ -56,7 +53,7 @@
     h1{ font-size: clamp(28px, 4vw, 48px); color: var(--pink-3); font-weight:800; letter-spacing:1px; margin:8px 0 2px}
     h2{ margin-top:0; font-weight:400; color: var(--pink-4); font-size: clamp(16px, 2.2vw, 22px)}
 
-    /* Gallery ngang (dùng cho lookback & bộ ảnh cũ) */
+    /* gallery ngang (lookback & bộ ảnh cũ) */
     .gallery-wrap{overflow:hidden}
     .gallery{display:flex; gap:12px; width:max-content; margin:22px auto 0; animation:scroll 25s linear infinite}
     .gallery img{height:200px; width:auto; border-radius:15px; box-shadow:var(--shadow); animation:floaty 3s ease-in-out infinite}
@@ -75,51 +72,34 @@
     .candle.off .flame{display:none}
     #message{font-size:16px; font-weight:700; margin-top:6px; color:var(--pink-3)}
 
-    /* Postcard lời chúc */
+    /* postcard lời chúc */
     .postcard{background:#fffdfc; border-radius:20px; padding:28px 22px; box-shadow:0 12px 30px rgba(255,170,200,.35), inset 0 0 0 2px rgba(255,160,200,.25); position:relative}
     .postcard:before{content:""; position:absolute; inset:10px; border-radius:16px; border:2px dashed rgba(255,120,170,.35)}
     .wish-title{ font-weight:800; margin:0 0 10px; font-size:clamp(18px,2.4vw,22px) }
     .wish-list{display:grid; gap:12px}
     .wish-item{background:var(--card); border-radius:14px; padding:12px 14px; box-shadow:var(--shadow); text-align:left; position:relative; padding-left:44px}
-    /* UPDATED: icon xinh động thay bullet */
-    .wish-item::before{
-      content: attr(data-emo);
-      position:absolute; left:12px; top:50%; transform:translateY(-50%) rotate(-8deg);
-      font-weight:800; animation:wiggle 1.6s ease-in-out infinite;
-    }
+    .wish-item::before{content: attr(data-emo); position:absolute; left:12px; top:50%; transform:translateY(-50%) rotate(-8deg); font-weight:800; animation:wiggle 1.6s ease-in-out infinite}
     @keyframes wiggle{0%,100%{transform:translateY(-50%) rotate(-8deg)}50%{transform:translateY(calc(-50% - 2px)) rotate(6deg)}}
 
-    /* Envelope CONFESSION  */
-    .envelope{ /* UPDATED: phong bì to */
-      position:relative; margin:0 auto; max-width:var(--maxw); background:#fff7fb; border-radius:18px; box-shadow:var(--shadow); padding:0; overflow:hidden;
-    }
-    .envelope .flap{
-      position:absolute; left:0; right:0; top:0; height:0; padding-bottom:32%;
-      background:linear-gradient(180deg,#ffd8ea,#ffeaf5);
-      clip-path:polygon(0 0, 100% 0, 50% 100%);
-      transition:transform .6s ease, opacity .6s ease;
-      transform-origin:50% 0;
-    }
+    /* CONFESSION: phong bì */
+    .envelope{position:relative; margin:0 auto; max-width:var(--maxw); background:#fff7fb; border-radius:18px; box-shadow:var(--shadow); padding:0; overflow:hidden}
+    .envelope .flap{position:absolute; left:0; right:0; top:0; height:0; padding-bottom:32%; background:linear-gradient(180deg,#ffd8ea,#ffeaf5); clip-path:polygon(0 0, 100% 0, 50% 100%); transition:transform .6s ease, opacity .6s ease; transform-origin:50% 0; z-index:2}
     .envelope.open .flap{ transform:rotateX(180deg); opacity:.35 }
-    .envelope .paper{
-      margin-top:28%; /* nằm dưới flap */
-      padding:22px;
-      background:#fffdfd;
-      min-height:120px;
-      border-top-left-radius:18px; border-top-right-radius:18px;
-    }
-    .envelope h3{
-      margin:0; text-align:left; font-weight:800; color:var(--pink-3); padding:16px 22px;
-    }
-    .envelope .toggle{cursor:pointer; user-select:none}
+    .envelope .hint{margin:14px 0 0; font-weight:700}
+    .envelope .paper-wrap{margin-top:28%; background:#fffdfd; border-top-left-radius:18px; border-top-right-radius:18px; position:relative}
+    /* Ẩn hoàn toàn nội dung trước khi mở */
+    .paper-inner{max-height:0; overflow:hidden; transition:max-height .6s ease; padding:0 22px 0; text-align:left}
+    .envelope.open .paper-inner{max-height:1200px; padding:22px}
 
-    /* Music links & button */
+    /* lưới 2 cột cho playlist + lookback */
+    .grid-2{display:grid; gap:18px}
+    @media(min-width:960px){ .grid-2{grid-template-columns:1fr 1fr} }
+
+    /* music chip */
     .music-links{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:10px}
     .music-links a{background:var(--card); padding:10px 14px; border-radius:999px; box-shadow:var(--shadow); text-decoration:none; color:var(--ink); font-weight:600}
-    .music-btn{position:fixed; right:16px; bottom:16px; z-index:50; border:none; border-radius:999px; padding:10px 14px; background:linear-gradient(135deg,#ff4d94,#ff8fb3); color:#fff; font-weight:700; box-shadow:0 10px 18px rgba(255,77,148,.35); cursor:pointer; transition:.2s transform}
-    .music-btn[aria-pressed="true"]{filter:saturate(1.15)} .music-btn:active{transform:scale(.98)}
 
-    /* Gift + balloons (giữ) */
+    /* gift + balloons */
     .gift-section{padding:30px 0 10px}
     .gift-wrap{display:flex; flex-direction:column; align-items:center; gap:10px}
     .gift{width:160px; height:120px; background:#ff9dc6; border-radius:12px; position:relative; box-shadow:var(--shadow); cursor:pointer}
@@ -134,14 +114,14 @@
   </style>
 </head>
 <body>
-  <!-- nền icon -->
+  <!-- nền icon (thêm mèo) -->
   <div class="bg-decor" aria-hidden="true">
-    <span style="left:8%; animation-delay:-2s">✦</span>
-    <span style="left:20%; animation-delay:-6s">𓆉</span>
-    <span style="left:35%; animation-delay:-9s">✩</span>
-    <span style="left:48%; animation-delay:-4s">♡</span>
-    <span style="left:62%; animation-delay:-11s">★</span>
-    <span style="left:75%; animation-delay:-1s">𓇼</span>
+    <span style="left:6%; animation-delay:-2s">✦</span>
+    <span style="left:16%; animation-delay:-6s">𓆉</span>
+    <span style="left:26%; animation-delay:-9s">😺</span><!-- UPDATED cat -->
+    <span style="left:40%; animation-delay:-4s">✩</span>
+    <span style="left:58%; animation-delay:-11s">♡</span>
+    <span style="left:74%; animation-delay:-1s">★</span>
     <span style="left:88%; animation-delay:-7s">❀</span>
   </div>
 
@@ -150,15 +130,13 @@
   <!-- HERO -->
   <section class="container section hero">
     <div class="media">
-      <div class="img-wrap">
-        <img src="assets/Tinkerbell.jpg" alt="Thiên Vi Tinkerbell" loading="eager">
-      </div>
+      <div class="img-wrap"><img src="assets/Tinkerbell.jpg" alt="Thiên Vi Tinkerbell" loading="eager"></div>
     </div>
     <div class="copy">
-      <span class="label">SWEET LETTER</span> <!-- UPDATED -->
+      <span class="label">SWEET LETTER</span>
       <h3>Chúng ta đã cùng trải qua một hành trình (không dài lắm mà cũng không ngắn lắm) và ọ oẹ nhau hơi nhiều, nhỉ?</h3>
       <p>Cùng đếm ngược đến ngày sinh nhật Hà Thanh nhoé ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</p>
-      <div class="countdown" id="countdown">09.11.2025 is comingggg 𓇼 ⋆.˚ 𓆉 𓆝</div> <!-- UPDATED -->
+      <div class="countdown" id="countdown">09.11.2025 is comingggg 𓇼 ⋆.˚ 𓆉 𓆝</div>
     </div>
   </section>
 
@@ -172,9 +150,7 @@
 
   <!-- Ngắt trang -->
   <section class="container section">
-    <div class="card" style="font-weight:800">
-      PHẦN NÀY ĐẾN 09.11.2025 HÀ THANH MỚI ĐƯỢC ĐỌC Ạ. CHE MẮT LẠI I ^.^  <!-- UPDATED -->
-    </div>
+    <div class="card" style="font-weight:800">PHẦN NÀY ĐẾN 09.11.2025 HÀ THANH MỚI ĐƯỢC ĐỌC Ạ. CHE MẮT LẠI I ^.^</div>
   </section>
 
   <!-- Site cũ -->
@@ -182,12 +158,13 @@
     <h1>HAPPY BIRTHDAY MY ANGEL</h1>
     <h2>Wishing you a day as lovely as you are ฅ^>⩊<^ ฅ</h2>
 
-    <!-- UPDATED: trả lại GIF dancing cat ngay sau heading -->
+    <!-- GIF + đoạn văn mới -->
     <div class="container" style="padding-top:8px">
       <img src="assets/dancing-cat-dance.gif" alt="dancing cat" style="width:min(260px,70vw); border-radius:20px; box-shadow:0 0 25px rgba(255,192,203,.6)"/>
+      <p style="max-width:820px; margin:16px auto 0">Đọc đến đây, người đã bắt đầu smile chưa nhỉ? Chắc chắn là có luôn ^.^ Đó, nên là làm người khác vui khom khó đâu, chỉ cần mình đừng khó chịu với người ta là người ta dễ chịu với mình liền ò. Nên là đừng ọ oẹ với Thiên Vi nữa nha. Thiên Vi còn dỗi nên mới nhờ Tinkerbell code tặng Hà Thanh chiếc web này đó ạ (╥﹏╥)</p>
     </div>
 
-    <!-- Postcard lời chúc (mỗi câu 1 box, icon dễ thương động) -->
+    <!-- Postcard lời chúc -->
     <section class="container section">
       <div class="postcard">
         <div class="wish-title"><strong>Chúc Hà Thanh không chỉ vui vào mỗi ngày sinh nhật, mà là cả tháng, cả năm và nhiều năm 🐎i 🐎i về sau ạ ( ˶˘ ³˘)♡</strong></div>
@@ -202,7 +179,7 @@
       </div>
     </section>
 
-    <!-- UPDATED: dải ảnh cũ (be kind / tissues / Happy Birthday) với motion -->
+    <!-- Bộ ảnh cũ với motion -->
     <section class="container section">
       <div class="gallery-wrap">
         <div class="gallery" aria-hidden="true">
@@ -216,19 +193,14 @@
       </div>
     </section>
 
-    <!-- Nến: click để tắt + khói -->
+    <!-- Nến -->
     <div class="candle-section">
       <div id="message">Ba là cây nến vàng, mẹ là cây nến xanh, Hà Thanh thổi nến nhẹ nhàng thôi nha (˵ •̀ ᴗ - ˵ ) ✧</div>
-      <div class="candle" id="candle" title="Chạm để thổi nến">
-        <div class="flame"></div>
-        <div class="smoke" id="smoke"></div>
-      </div>
+      <div class="candle" id="candle" title="Chạm để thổi nến"><div class="flame"></div><div class="smoke" id="smoke"></div></div>
     </div>
 
-    <!-- Wish granted ngay sau nến -->
-    <section class="container section" style="padding-top:12px">
-      <div class="card"><strong>Wish granted (∩˃o˂∩)♡</strong></div>
-    </section>
+    <!-- Wish granted -->
+    <section class="container section" style="padding-top:12px"><div class="card"><strong>Wish granted (∩˃o˂∩)♡</strong></div></section>
 
     <!-- Hộp quà -->
     <section class="gift-section container">
@@ -239,57 +211,68 @@
       </div>
     </section>
 
-    <!-- Look back + ảnh chuyển động + caption mới -->
+    <!-- Grid: trái playlist, phải box lookback (giữ nguyên nội dung) -->
     <section class="container section">
-      <div class="card" style="text-align:left; position:relative">
-        <h3 style="margin:0 0 10px; font-weight:800">Mình cùng look back một chút không nhỉ?</h3>
-        <p>Thiên Vi có chiếc playlist này từ hồi tháng 1 — chắc là nó lookback được cả journey của tụi mình luôn rồi ạ.</p>
-
-        <div class="gallery-wrap" aria-hidden="true">
-          <div class="gallery">
-            <img src="assets/cant-smile-1.jpg" alt="can't smile without you 1" loading="lazy">
-            <img src="assets/cant-smile-2.jpg" alt="can't smile without you 2" loading="lazy">
-            <img src="assets/cant-smile-3.jpg" alt="can't smile without you 3" loading="lazy">
-            <img src="assets/cant-smile-1.jpg" alt="" loading="lazy">
-            <img src="assets/cant-smile-2.jpg" alt="" loading="lazy">
-            <img src="assets/cant-smile-3.jpg" alt="" loading="lazy">
-          </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-weight:800; text-align:left">Playlist của tụi mình</h3>
+          <iframe style="width:100%; min-height:420px; border:0; border-radius:14px; box-shadow:var(--shadow)"
+            src="https://www.youtube.com/embed/videoseries?list=PLz301c-yfQZ8YEHu6Jn-g9q8KxXaveREV"
+            title="YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-
-        <p style="margin-top:12px; font-weight:600; text-align:center">
-          Mọi người bảo lúc này em cười nhiều nhất trong suốt thời gian ở đây. Đúng là như vậy rồi ạ, tại vì thực sự là “Can't smile without you ạ (˵ •̀ ᴗ - ˵ ) ✧
-        </p>
-      </div>
-    </section>
-
-    <!-- CONFESSION phong bì -->
-    <section class="container section">
-      <div id="env" class="envelope">
-        <div class="flap"></div>
-        <h3 class="toggle">CONFESSION</h3>
-        <div class="paper" id="paper" style="max-height:0; overflow:hidden; transition:max-height .6s ease">
-          <p style="margin:0; text-align:left">
-            Còn đây là những điều đơn giản, không cầu kỳ mà Thiên Vi muốn nhắn nhủ:
-            <br><br>
-            Cảm ơn người vì đã mang đến cho em rất nhiều những cảm xúc và cả suy nghĩ, trải nghiệm - mà em chưa từng có bao giờ. Có thể Hà Thanh thấy em cũng giỏi, cũng làm được nhiều thứ, nhưng, em cũng chỉ là người bình thường, vẫn có rất nhiều hạn chế và vẫn chông chênh mỗi ngày - ý là vẫn nằm suy nghĩ và cũng chẳng biết phải làm gì tiếp theo. Mấy tháng gần đây em rảnh hơn nhiều và còn thấy mình ngốc đi nữa. Giỏi giang âu cũng chỉ là cái mác đẹp đẽ mà mọi người hay gán cho ta thôi, chứ điều mà em có thực ra chỉ là sự chân thành và tử tế, tận tâm này. Tuổi mới đừng khóc nhiều nhoé. Từ lần đầu em thấy người khóc, em đã tự hứa với lòng là nếu em còn ở cạnh người, em sẽ không để người phải khóc vì những uất ức đó nữa. Bây giờ và sau này chắc sẽ có người khác thay em làm điều này rồi, nên chỉ mong người cười nhiều hơn thôi. Niềm vui vốn dĩ đơn giản như khi mình xem meme, lướt web, thấy chiếc tin nhắn quan tâm hay là ngắm hoàng hôn mỗi chiều - kiểu vậy, nhỉ? Thật vui khi thấy story của Hà Thanh là những buổi chiều hoàng hôn và những buổi sáng đi làm trên metro đấy ạ. Ngày đấy, khi thấy người lướt xem điện thoại, rồi nhìn sang xung quanh team mình cũng hay thế, em đã nghĩ: Ôi *lắc đầu*. Thiên Vi mà người thấy luôn hustle thực ra nó cũng chỉ thích ngắm mưa, nhìn trời, nựng mèo và rung cảm với tất cả mọi thứ nhỏ nhất diễn ra mọi ngày thôi người ạ. Sự có mặt trọn vẹn là điều tốt nhất mà em có thể dành cho người (lần đó có share bài này về tag mà chắc người quên rồi quá hoặc là hỏng xem luôn éc). Ai cũng có những điều đẹp đẽ để mình nhìn vào đó mà cảm thông cho họ hơn. Nên là: hãy luôn dịu dàng với chính mình và dịu dàng với cả vết thương của người khác nha angel ơi *biến mất cùng làn khói*
+        <div class="card" style="text-align:left; position:relative">
+          <h3 style="margin:0 0 10px; font-weight:800">Mình cùng look back một chút không nhỉ?</h3>
+          <p>Thiên Vi có chiếc playlist này từ hồi tháng 1 — chắc là nó lookback được cả journey của tụi mình luôn rồi ạ.</p>
+          <div class="gallery-wrap" aria-hidden="true">
+            <div class="gallery">
+              <img src="assets/cant-smile-1.jpg" alt="can't smile without you 1" loading="lazy">
+              <img src="assets/cant-smile-2.jpg" alt="can't smile without you 2" loading="lazy">
+              <img src="assets/cant-smile-3.jpg" alt="can't smile without you 3" loading="lazy">
+              <img src="assets/cant-smile-1.jpg" alt="" loading="lazy">
+              <img src="assets/cant-smile-2.jpg" alt="" loading="lazy">
+              <img src="assets/cant-smile-3.jpg" alt="" loading="lazy">
+            </div>
+          </div>
+          <p style="margin-top:12px; font-weight:600; text-align:center">
+            Mọi người bảo lúc này em cười nhiều nhất trong suốt thời gian ở đây. Đúng là như vậy rồi ạ, tại vì thực sự là “Can't smile without you ạ (˵ •̀ ᴗ - ˵ ) ✧
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Nhạc cuối trang -->
+    <!-- CONFESSION: phong bì, ẩn nội dung trước khi mở -->
     <section class="container section">
-      <h3 style="margin:0 0 10px; font-weight:800">Lúc nào chán quá thì mình nghe nhạc, còn chán hơn nữa thì mình xem phim…</h3>
+      <div id="env" class="envelope">
+        <div class="flap"></div>
+        <div class="hint">Chạm vào để xem ^.^</div> <!-- UPDATED -->
+        <div class="paper-wrap">
+          <div class="paper-inner" id="paper">
+            <p>
+              Còn đây là những điều đơn giản, không cầu kỳ mà Thiên Vi muốn nhắn nhủ:<br><br>
+              Cảm ơn người vì đã mang đến cho em rất nhiều những cảm xúc và cả suy nghĩ, trải nghiệm - mà em chưa từng có bao giờ. Có thể Hà Thanh thấy em cũng giỏi, cũng làm được nhiều thứ, nhưng, em cũng chỉ là người bình thường, vẫn có rất nhiều hạn chế và vẫn chông chênh mỗi ngày - ý là vẫn nằm suy nghĩ và cũng chẳng biết phải làm gì tiếp theo. Mấy tháng gần đây em rảnh hơn nhiều và còn thấy mình ngốc đi nữa. Giỏi giang âu cũng chỉ là cái mác đẹp đẽ mà mọi người hay gán cho ta thôi, chứ điều mà em có thực ra chỉ là sự chân thành và tử tế, tận tâm này. Tuổi mới đừng khóc nhiều nhoé. Từ lần đầu em thấy người khóc, em đã tự hứa với lòng là nếu em còn ở cạnh người, em sẽ không để người phải khóc vì những uất ức đó nữa. Bây giờ và sau này chắc sẽ có người khác thay em làm điều này rồi, nên chỉ mong người cười nhiều hơn thôi. Niềm vui vốn dĩ đơn giản như khi mình xem meme, lướt web, thấy chiếc tin nhắn quan tâm hay là ngắm hoàng hôn mỗi chiều - kiểu vậy, nhỉ? Thật vui khi thấy story của Hà Thanh là những buổi chiều hoàng hôn và những buổi sáng đi làm trên metro đấy ạ. Ngày đấy, khi thấy người lướt xem điện thoại, rồi nhìn sang xung quanh team mình cũng hay thế, em đã nghĩ: Ôi *lắc đầu*. Thiên Vi mà người thấy luôn hustle thực ra nó cũng chỉ thích ngắm mưa, nhìn trời, nựng mèo và rung cảm với tất cả mọi thứ nhỏ nhất diễn ra mọi ngày thôi người ạ. Sự có mặt trọn vẹn là điều tốt nhất mà em có thể dành cho người (lần đó có share bài này về tag mà chắc người quên rồi quá hoặc là hỏng xem luôn éc). Ai cũng có những điều đẹp đẽ để mình nhìn vào đó mà cảm thông cho họ hơn. Nên là: hãy luôn dịu dàng với chính mình và dịu dàng với cả vết thương của người khác nha angel ơi *biến mất cùng làn khói*....
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nhạc + phim (đủ text + thêm 2 link) -->
+    <section class="container section">
+      <h3 style="margin:0 0 10px; font-weight:800">
+        Lúc nào chán quá thì mình nghe nhạc, còn chán hơn nữa thì mình xem phim. Chắc người thông minh aka Nguyễn Hà Thanh sẽ thích “Inception” - poor vì chúng ta không có cơ hội xem cùng hẹ hẹ. Đời này thi vị lắm, chúc người enjoy nhiều nha ạ ^.^
+      </h3>
       <div class="music-links">
         <a href="https://www.youtube.com/watch?v=DydIIDQuhxU&list=RDDydIIDQuhxU&start_radio=1" target="_blank" rel="noopener">Thư cho anh</a>
         <a href="https://www.youtube.com/watch?v=A8-ENEqhQjg" target="_blank" rel="noopener">Every day, Every Moment</a>
         <a href="https://www.youtube.com/watch?v=YoHD9XEInc0" target="_blank" rel="noopener">Inception</a>
+        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank" rel="noopener">Interstellar</a> <!-- UPDATED -->
+        <a href="https://www.youtube.com/watch?v=oglmFkKicYk&list=RDoglmFkKicYk&start_radio=1" target="_blank" rel="noopener">Wish</a> <!-- UPDATED -->
       </div>
     </section>
   </main>
 
-  <!-- Lời nhắn cuối cùng (không bọc box) -->
-  <div class="container" style="padding-top:0; padding-bottom:48px"> <!-- UPDATED -->
+  <!-- Lời nhắn cuối -->
+  <div class="container" style="padding-top:0; padding-bottom:48px">
     Sẽ luôn có người dịu dàng với Hà Thanh, nên Hà Thanh hãy luôn dịu dàng với chính mình và mọi người nha ạ. I meow you ≽^-⩊-^≼
   </div>
 
@@ -309,7 +292,7 @@
     musicBtn.addEventListener('click', async () => { if (bgm.paused) { try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); } catch(e){} } else { bgm.pause(); musicBtn.setAttribute('aria-pressed','false'); }});
     document.addEventListener('visibilitychange', async () => { if (!document.hidden && musicBtn.getAttribute('aria-pressed') === 'true' && bgm.paused) { try { await bgm.play(); } catch(e){} }});
 
-    // ===== Candle: click to turn off with smoke =====
+    // ===== Candle
     const candle = document.getElementById('candle');
     const smoke = document.getElementById('smoke');
     let blown = false;
@@ -321,7 +304,7 @@
       setTimeout(()=> smoke.classList.remove('show'), 1300);
     });
 
-    // ===== Gift balloons =====
+    // ===== Gift balloons
     const gift = document.getElementById('gift');
     const balloons = document.getElementById('balloons');
     let opened = false;
@@ -342,13 +325,13 @@
       else { for(let i=0;i<6;i++) setTimeout(()=>spawnBalloon(i), i*140); }
     });
 
-    // ===== CONFESSION envelope toggle
+    // ===== CONFESSION toggle (click toàn bộ phong bì)
     const env = document.getElementById('env');
     const paper = document.getElementById('paper');
-    env?.querySelector('.toggle')?.addEventListener('click', ()=>{
+    env?.addEventListener('click', ()=>{
       env.classList.toggle('open');
-      if (paper.style.maxHeight && paper.style.maxHeight !== '0px'){ paper.style.maxHeight = '0px'; }
-      else { paper.style.maxHeight = paper.scrollHeight + 'px'; }
+      if (paper.style.maxHeight && paper.style.maxHeight !== '0px'){ paper.style.maxHeight = '0px'; paper.style.padding = '0 22px 0'; }
+      else { paper.style.maxHeight = paper.scrollHeight + 'px'; paper.style.padding = '22px'; }
     });
   </script>
 </body>
