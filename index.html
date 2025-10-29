@@ -27,9 +27,7 @@
     }
 
     /* nền icon động */
-    .bg-decor{pointer-events:none; position:fixed; inset:0; z-index:-1; overflow:hidden; opacity:.25; font-size:22px;
-      will-change:transform; /* UPDATED: mượt parallax */
-    }
+    .bg-decor{pointer-events:none; position:fixed; inset:0; z-index:-1; overflow:hidden; opacity:.25; font-size:22px; will-change:transform;}
     .bg-decor span{position:absolute; animation:drift 14s linear infinite; filter:blur(.2px)}
     @keyframes drift{from{transform:translateY(110vh)} to{transform:translateY(-15vh)}}
 
@@ -50,16 +48,16 @@
     .countdown{margin-top:12px; font-weight:800; font-size:clamp(18px,3vw,32px); color:var(--pink-3)}
     @media(min-width:900px){ .hero{grid-template-columns:420px 1fr} .hero .copy{margin:0} }
 
-    /* headings cũ giữ Comic Sans */
+    /* headings */
     h1,h2{font-family:"Comic Sans MS",cursive}
     h1{ font-size: clamp(28px, 4vw, 48px); color: var(--pink-3); font-weight:800; letter-spacing:1px; margin:8px 0 2px}
     h2{ margin-top:0; font-weight:400; color: var(--pink-4); font-size: clamp(16px, 2.2vw, 22px)}
 
-    /* gallery ngang (lookback & bộ ảnh cũ) */
+    /* gallery ngang */
     .gallery-wrap{overflow:hidden}
     .gallery{display:flex; gap:12px; width:max-content; margin:22px auto 0; animation:scroll 25s linear infinite}
-    .gallery img{height:200px; width:auto; border-radius:15px; box-shadow:var(--shadow); animation:floaty 3s ease-in-out infinite; transition:transform .18s ease;} /* UPDATED */
-    .gallery img:hover{ transform:translateY(-6px) rotate(-1.5deg);} /* UPDATED: tilt nhẹ */
+    .gallery img{height:200px; width:auto; border-radius:15px; box-shadow:var(--shadow); animation:floaty 3s ease-in-out infinite; transition:transform .18s ease;}
+    .gallery img:hover{ transform:translateY(-6px) rotate(-1.5deg);}
     @keyframes scroll{from{transform:translateX(0)} to{transform:translateX(-50%)}}
     @keyframes floaty{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
     @media(prefers-reduced-motion:reduce){ .gallery{animation:none} .gallery img{animation:none} }
@@ -88,12 +86,16 @@
     .envelope{position:relative; margin:0 auto; max-width:var(--maxw); background:#fff7fb; border-radius:18px; box-shadow:var(--shadow); padding:0; overflow:hidden}
     .envelope .flap{position:absolute; left:0; right:0; top:0; height:0; padding-bottom:32%; background:linear-gradient(180deg,#ffd8ea,#ffeaf5); clip-path:polygon(0 0, 100% 0, 50% 100%); transition:transform .6s ease, opacity .6s ease; transform-origin:50% 0; z-index:2}
     .envelope.open .flap{ transform:rotateX(180deg); opacity:.35 }
+    /* hint nằm trên mặt bìa */
     .flap .hint{position:absolute; left:50%; top:18%; transform:translate(-50%,-50%); font-weight:800; font-size:14px; color:#b14b7b; text-shadow:0 1px 0 rgba(255,255,255,.8)}
     .envelope .paper-wrap{margin-top:28%; background:#fffdfd; border-top-left-radius:18px; border-top-right-radius:18px; position:relative}
+    /* Ẩn hoàn toàn nội dung trước khi mở */
     .paper-inner{max-height:0; overflow:hidden; transition:max-height .6s ease; padding:0 22px 0; text-align:left}
-    .envelope.open .paper-inner{max-height:1200px; padding:22px}
+    /* thêm khoảng dưới + spacer để chữ không chạm viền */
+    .paper-inner::after{content:""; display:block; height:18px;}
+    .envelope.open .paper-inner{max-height:1200px; padding:22px 22px 36px;}
 
-    /* Confetti heart lớn (mở phong bì) */
+    /* Confetti heart */
     .heart{position:absolute; top:10%; font-size:18px; opacity:.85; filter:drop-shadow(0 2px 4px rgba(0,0,0,.08)); pointer-events:none}
     @keyframes fall{
       0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:.95}
@@ -101,25 +103,11 @@
       100%{ transform:translateY(120%) translateX(var(--drift, 0px)) rotate(360deg); opacity:0}
     }
 
-    /* UPDATED: Mini heart trail cho nút Music */
-    .mini-heart{position:fixed; pointer-events:none; z-index:2000; font-size:14px; color:#ff77aa; opacity:.95; filter:drop-shadow(0 1px 2px rgba(0,0,0,.1))}
-    @keyframes miniUp{
-      0%{ transform:translateY(0) scale(.9); opacity:.95}
-      100%{ transform:translateY(-20px) scale(1.05); opacity:0}
-    }
-
-    /* UPDATED: Sparkle on click */
-    .sparkle{position:fixed; pointer-events:none; z-index:2000; font-size:14px; color:#ffb3d9; opacity:.95; filter:drop-shadow(0 1px 2px rgba(0,0,0,.08))}
-    @keyframes sparkle{
-      from{ transform:translate(0,0) scale(.9); opacity:1 }
-      to{ transform:translate(var(--tx,0), var(--ty,0)) scale(1.1); opacity:0 }
-    }
-
-    /* (grid-2 giữ nguyên cho nơi khác) */
+    /* lưới 2 cột (dùng nơi khác nếu cần) */
     .grid-2{display:grid; gap:18px}
     @media(min-width:960px){ .grid-2{grid-template-columns:1fr 1fr} }
 
-    /* music chip / button */
+    /* music chips / button */
     .music-links{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:10px}
     .music-links a{background:var(--card); padding:10px 14px; border-radius:999px; box-shadow:var(--shadow); text-decoration:none; color:var(--ink); font-weight:600}
     .music-btn{position:fixed; right:16px; bottom:16px; z-index:1001; border:0; border-radius:999px; padding:10px 16px; background:#ffe5f3; color:#b14b7b; font-weight:800; box-shadow:var(--shadow); cursor:pointer}
@@ -141,6 +129,14 @@
     /* GIFs cạnh nhau */
     .gifs-row{display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap}
     .gifs-row img{width:min(220px,30vw); border-radius:20px; box-shadow:0 0 25px rgba(255,192,203,.6)}
+
+    /* Mini heart trail (hover Music) */
+    .mini-heart{position:fixed; pointer-events:none; z-index:2000; font-size:14px; color:#ff77aa; opacity:.95; filter:drop-shadow(0 1px 2px rgba(0,0,0,.1))}
+    @keyframes miniUp{0%{ transform:translateY(0) scale(.9); opacity:.95}100%{ transform:translateY(-20px) scale(1.05); opacity:0}}
+
+    /* Sparkle on click */
+    .sparkle{position:fixed; pointer-events:none; z-index:2000; font-size:14px; color:#ffb3d9; opacity:.95; filter:drop-shadow(0 1px 2px rgba(0,0,0,.08))}
+    @keyframes sparkle{from{ transform:translate(0,0) scale(.9); opacity:1 } to{ transform:translate(var(--tx,0), var(--ty,0)) scale(1.1); opacity:0 }}
   </style>
 </head>
 <body>
@@ -269,14 +265,14 @@
     <!-- PLAYLIST SAU ĐÓ -->
     <section class="container section">
       <div class="card">
-        <h3 style="margin:0 0 10px; font-weight:800; text-align:left">Playlist của tụi mình</h3>
+        <h3 style="margin:0 0 10px; font-weight:800; text-align:left">Chiếc playlist này nè ạ ^.^</h3>
         <iframe style="width:100%; min-height:420px; border:0; border-radius:14px; box-shadow:var(--shadow)"
           src="https://www.youtube.com/embed/videoseries?list=PLz301c-yfQZ8YEHu6Jn-g9q8KxXaveREV"
           title="YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </section>
 
-    <!-- CONFESSION: phong bì -->
+    <!-- CONFESSION: phong bì, ẩn nội dung trước khi mở -->
     <section class="container section">
       <div id="env" class="envelope">
         <div class="flap">
@@ -293,7 +289,7 @@
       </div>
     </section>
 
-    <!-- Nhạc + phim (text đã chỉnh) -->
+    <!-- Nhạc + phim (đã chỉnh text) -->
     <section class="container section">
       <h3 style="margin:0 0 10px; font-weight:800">
         Lúc nào chán quá thì mình nghe nhạc, còn chán hơn nữa thì mình xem phim, đọc sách, nấu ăn, làm bánh đồ ạ. Chắc người thông minh aka Nguyễn Hà Thanh sẽ thích “Inception” - poor vì chúng ta không có cơ hội xem cùng hẹ hẹ. Đời này thi vị lắm, chúc người enjoy nhiều nha ạ ^.^
@@ -318,10 +314,10 @@
   <button id="musicBtn" class="music-btn" aria-pressed="false" aria-label="Toggle music">♫ Music</button>
 
   <script>
-    // ===== Preferences =====
-    const PREFERS_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; /* UPDATED */
+    // ===== Preferences
+    const PREFERS_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ===== Music autoplay =====
+    // ===== Music autoplay & toggle (fix nút Bongo Cat)
     const MUSIC_SRC = 'assets/Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3';
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
@@ -350,12 +346,12 @@
       }
     });
 
-    // ===== Candle (Haptic) =====
+    // ===== Candle (Haptic)
     const candle = document.getElementById('candle');
     const smoke = document.getElementById('smoke');
     let blown = false;
     candle?.addEventListener('click', ()=>{
-      if (navigator.vibrate) navigator.vibrate(10); // haptic
+      if (navigator.vibrate) navigator.vibrate(10);
       if (blown) return;
       blown = true;
       candle.classList.add('off');
@@ -363,7 +359,7 @@
       setTimeout(()=> smoke.classList.remove('show'), 1300);
     });
 
-    // ===== Gift balloons (Haptic) =====
+    // ===== Gift balloons (Haptic)
     const gift = document.getElementById('gift');
     const balloons = document.getElementById('balloons');
     let opened = false;
@@ -380,12 +376,12 @@
       setTimeout(()=> b.remove(), 3200);
     }
     gift?.addEventListener('click', ()=>{
-      if (navigator.vibrate) navigator.vibrate(10); // haptic
+      if (navigator.vibrate) navigator.vibrate(10);
       if(!opened){ gift.classList.add('open'); opened = true; for(let i=0;i<14;i++) setTimeout(()=>spawnBalloon(i), i*120); }
       else { for(let i=0;i<6;i++) setTimeout(()=>spawnBalloon(i), i*140); }
     });
 
-    // ===== CONFESSION toggle + Confetti hearts (lớn) =====
+    // ===== CONFESSION toggle + Confetti hearts
     const env = document.getElementById('env');
     const paper = document.getElementById('paper');
 
@@ -395,16 +391,16 @@
         const h = document.createElement('span');
         h.className = 'heart';
         h.textContent = '♥';
-        const left = 10 + Math.random()*80;
-        const size = 14 + Math.random()*10;
-        const dur = 1500 + Math.random()*500;
-        const drift = (Math.random()*40 - 20);
-        const delay = Math.random()*200;
+        const left = 10 + Math.random()*80;       // %
+        const size = 14 + Math.random()*10;       // px
+        const dur = 1500 + Math.random()*500;     // ms
+        const drift = (Math.random()*40 - 20);    // px
+        const delay = Math.random()*200;          // ms
         h.style.left = left + '%';
         h.style.fontSize = size + 'px';
         h.style.setProperty('--drift', drift + 'px');
         h.style.animation = `fall ${dur}ms ease-in forwards`;
-        if (delay) { h.style.animationDelay = delay + 'ms'; }
+        if (delay) h.style.animationDelay = delay + 'ms';
         container.appendChild(h);
         setTimeout(()=> h.remove(), dur + 220);
       }
@@ -417,11 +413,11 @@
       if (paper.style.maxHeight && paper.style.maxHeight !== '0px'){
         paper.style.maxHeight = '0px'; paper.style.padding = '0 22px 0';
       } else {
-        paper.style.maxHeight = paper.scrollHeight + 'px'; paper.style.padding = '22px';
+        paper.style.maxHeight = paper.scrollHeight + 'px'; paper.style.padding = '22px 22px 36px';
       }
     });
 
-    // ===== Parallax icon nền (1–2px) =====
+    // ===== Parallax icon nền (1–2px)
     (function(){
       const decor = document.getElementById('bgDecor');
       if (!decor || PREFERS_REDUCED) return;
@@ -441,7 +437,7 @@
       window.addEventListener('mousemove', onMove, {passive:true});
     })();
 
-    // ===== UPDATED: Auto-heart trail khi hover nút Music =====
+    // ===== Auto-heart trail khi hover nút Music
     function miniHeartTrail(){
       if (PREFERS_REDUCED) return;
       const rect = musicBtn.getBoundingClientRect();
@@ -460,9 +456,9 @@
       }
     }
     musicBtn?.addEventListener('mouseenter', miniHeartTrail);
-    musicBtn?.addEventListener('mousemove', (e)=>{ if (Math.random() < 0.1) miniHeartTrail(); }); // rải thưa thêm chút
+    musicBtn?.addEventListener('mousemove', ()=>{ if (Math.random() < 0.1) miniHeartTrail(); });
 
-    // ===== UPDATED: Sparkle on click (mọi nơi) =====
+    // ===== Sparkle on click (mọi nơi)
     window.addEventListener('click', (e)=>{
       if (PREFERS_REDUCED) return;
       const n = 5 + Math.floor(Math.random()*3); // 5–7
