@@ -27,7 +27,9 @@
     }
 
     /* nền icon động */
-    .bg-decor{pointer-events:none; position:fixed; inset:0; z-index:-1; overflow:hidden; opacity:.25; font-size:22px}
+    .bg-decor{pointer-events:none; position:fixed; inset:0; z-index:-1; overflow:hidden; opacity:.25; font-size:22px;
+      will-change:transform; /* UPDATED: mượt parallax */
+    }
     .bg-decor span{position:absolute; animation:drift 14s linear infinite; filter:blur(.2px)}
     @keyframes drift{from{transform:translateY(110vh)} to{transform:translateY(-15vh)}}
 
@@ -56,14 +58,15 @@
     /* gallery ngang (lookback & bộ ảnh cũ) */
     .gallery-wrap{overflow:hidden}
     .gallery{display:flex; gap:12px; width:max-content; margin:22px auto 0; animation:scroll 25s linear infinite}
-    .gallery img{height:200px; width:auto; border-radius:15px; box-shadow:var(--shadow); animation:floaty 3s ease-in-out infinite}
+    .gallery img{height:200px; width:auto; border-radius:15px; box-shadow:var(--shadow); animation:floaty 3s ease-in-out infinite; transition:transform .18s ease;} /* UPDATED */
+    .gallery img:hover{ transform:translateY(-6px) rotate(-1.5deg);} /* UPDATED: tilt nhẹ */
     @keyframes scroll{from{transform:translateX(0)} to{transform:translateX(-50%)}}
     @keyframes floaty{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
     @media(prefers-reduced-motion:reduce){ .gallery{animation:none} .gallery img{animation:none} }
 
     /* Candle */
     .candle-section{margin-top:30px; background:var(--card); padding:44px 0; border-top-left-radius:50px; border-top-right-radius:50px; box-shadow:0 -5px 20px rgba(255,182,193,.3)}
-    .candle{position:relative; width:40px; height:80px; background:#fff0f5; border-radius:10px; margin:26px auto; box-shadow:0 0 10px rgba(255,150,180,.5); cursor:pointer}
+    .candle{position:relative; width:40px; height:80px; background:#fff0f5; border-radius:10px; margin:26px auto; box-shadow:var(--shadow); cursor:pointer}
     .flame{position:absolute; top:-25px; left:50%; transform:translateX(-50%); width:25px; height:25px; background:radial-gradient(circle,#ffd966,#ffb347,#ff7b00); border-radius:50%; box-shadow:0 0 30px 10px rgba(255,184,108,.6); animation:flicker .25s infinite alternate}
     @keyframes flicker{0%{transform:translateX(-50%) scale(1);opacity:.95}100%{transform:translateX(-48%) scale(1.1);opacity:1}}
     .smoke{position:absolute; top:-12px; left:50%; transform:translateX(-50%); width:10px; height:10px; border-radius:50%; background:radial-gradient(circle, rgba(180,180,180,.6), rgba(180,180,180,0)); opacity:0; pointer-events:none}
@@ -85,19 +88,42 @@
     .envelope{position:relative; margin:0 auto; max-width:var(--maxw); background:#fff7fb; border-radius:18px; box-shadow:var(--shadow); padding:0; overflow:hidden}
     .envelope .flap{position:absolute; left:0; right:0; top:0; height:0; padding-bottom:32%; background:linear-gradient(180deg,#ffd8ea,#ffeaf5); clip-path:polygon(0 0, 100% 0, 50% 100%); transition:transform .6s ease, opacity .6s ease; transform-origin:50% 0; z-index:2}
     .envelope.open .flap{ transform:rotateX(180deg); opacity:.35 }
-    .envelope .hint{margin:14px 0 0; font-weight:700}
+    .flap .hint{position:absolute; left:50%; top:18%; transform:translate(-50%,-50%); font-weight:800; font-size:14px; color:#b14b7b; text-shadow:0 1px 0 rgba(255,255,255,.8)}
     .envelope .paper-wrap{margin-top:28%; background:#fffdfd; border-top-left-radius:18px; border-top-right-radius:18px; position:relative}
-    /* Ẩn hoàn toàn nội dung trước khi mở */
     .paper-inner{max-height:0; overflow:hidden; transition:max-height .6s ease; padding:0 22px 0; text-align:left}
     .envelope.open .paper-inner{max-height:1200px; padding:22px}
 
-    /* lưới 2 cột cho playlist + lookback */
+    /* Confetti heart lớn (mở phong bì) */
+    .heart{position:absolute; top:10%; font-size:18px; opacity:.85; filter:drop-shadow(0 2px 4px rgba(0,0,0,.08)); pointer-events:none}
+    @keyframes fall{
+      0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:.95}
+      80%{ opacity:.9}
+      100%{ transform:translateY(120%) translateX(var(--drift, 0px)) rotate(360deg); opacity:0}
+    }
+
+    /* UPDATED: Mini heart trail cho nút Music */
+    .mini-heart{position:fixed; pointer-events:none; z-index:2000; font-size:14px; color:#ff77aa; opacity:.95; filter:drop-shadow(0 1px 2px rgba(0,0,0,.1))}
+    @keyframes miniUp{
+      0%{ transform:translateY(0) scale(.9); opacity:.95}
+      100%{ transform:translateY(-20px) scale(1.05); opacity:0}
+    }
+
+    /* UPDATED: Sparkle on click */
+    .sparkle{position:fixed; pointer-events:none; z-index:2000; font-size:14px; color:#ffb3d9; opacity:.95; filter:drop-shadow(0 1px 2px rgba(0,0,0,.08))}
+    @keyframes sparkle{
+      from{ transform:translate(0,0) scale(.9); opacity:1 }
+      to{ transform:translate(var(--tx,0), var(--ty,0)) scale(1.1); opacity:0 }
+    }
+
+    /* (grid-2 giữ nguyên cho nơi khác) */
     .grid-2{display:grid; gap:18px}
     @media(min-width:960px){ .grid-2{grid-template-columns:1fr 1fr} }
 
-    /* music chip */
+    /* music chip / button */
     .music-links{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:10px}
     .music-links a{background:var(--card); padding:10px 14px; border-radius:999px; box-shadow:var(--shadow); text-decoration:none; color:var(--ink); font-weight:600}
+    .music-btn{position:fixed; right:16px; bottom:16px; z-index:1001; border:0; border-radius:999px; padding:10px 16px; background:#ffe5f3; color:#b14b7b; font-weight:800; box-shadow:var(--shadow); cursor:pointer}
+    .music-btn[aria-pressed="true"]{background:#ffccdf}
 
     /* gift + balloons */
     .gift-section{padding:30px 0 10px}
@@ -111,14 +137,18 @@
     .balloon{position:absolute; left:50%; bottom:0; transform:translateX(-50%); width:26px; height:34px; border-radius:50% 50% 50% 50%/60% 60% 40% 40%; background:#ffd166; opacity:0; animation:rise 2.8s ease-in forwards; filter:drop-shadow(0 6px 10px rgba(0,0,0,.1))}
     .balloon:after{content:""; position:absolute; left:50%; bottom:-18px; transform:translateX(-50%); width:2px; height:22px; background:rgba(0,0,0,.15)}
     @keyframes rise{0%{transform:translate(-50%,20px) scale(.9);opacity:0}12%{opacity:1}100%{transform:translate(-50%,-220px) scale(1.05);opacity:0}}
+
+    /* GIFs cạnh nhau */
+    .gifs-row{display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap}
+    .gifs-row img{width:min(220px,30vw); border-radius:20px; box-shadow:0 0 25px rgba(255,192,203,.6)}
   </style>
 </head>
 <body>
-  <!-- nền icon (thêm mèo) -->
-  <div class="bg-decor" aria-hidden="true">
+  <!-- nền icon (bỏ icon mèo 😺) -->
+  <div class="bg-decor" aria-hidden="true" id="bgDecor">
     <span style="left:6%; animation-delay:-2s">✦</span>
     <span style="left:16%; animation-delay:-6s">𓆉</span>
-    <span style="left:26%; animation-delay:-9s">😺</span><!-- UPDATED cat -->
+    <!-- removed 😺 per request -->
     <span style="left:40%; animation-delay:-4s">✩</span>
     <span style="left:58%; animation-delay:-11s">♡</span>
     <span style="left:74%; animation-delay:-1s">★</span>
@@ -160,7 +190,11 @@
 
     <!-- GIF + đoạn văn mới -->
     <div class="container" style="padding-top:8px">
-      <img src="assets/dancing-cat-dance.gif" alt="dancing cat" style="width:min(260px,70vw); border-radius:20px; box-shadow:0 0 25px rgba(255,192,203,.6)"/>
+      <div class="gifs-row">
+        <img src="assets/dancing-cat-dance.gif" alt="dancing cat"/>
+        <img src="assets/conmeo.gif" alt="con mèo dễ thương"/>
+        <img src="assets/meocon.gif" alt="mèo con đáng yêu"/>
+      </div>
       <p style="max-width:820px; margin:16px auto 0">Đọc đến đây, người đã bắt đầu smile chưa nhỉ? Chắc chắn là có luôn ^.^ Đó, nên là làm người khác vui khom khó đâu, chỉ cần mình đừng khó chịu với người ta là người ta dễ chịu với mình liền ò. Nên là đừng ọ oẹ với Thiên Vi nữa nha. Thiên Vi còn dỗi nên mới nhờ Tinkerbell code tặng Hà Thanh chiếc web này đó ạ (╥﹏╥)</p>
     </div>
 
@@ -211,40 +245,43 @@
       </div>
     </section>
 
-    <!-- Grid: trái playlist, phải box lookback (giữ nguyên nội dung) -->
+    <!-- LOOK BACK TRƯỚC -->
     <section class="container section">
-      <div class="grid-2">
-        <div class="card">
-          <h3 style="margin:0 0 10px; font-weight:800; text-align:left">Playlist của tụi mình</h3>
-          <iframe style="width:100%; min-height:420px; border:0; border-radius:14px; box-shadow:var(--shadow)"
-            src="https://www.youtube.com/embed/videoseries?list=PLz301c-yfQZ8YEHu6Jn-g9q8KxXaveREV"
-            title="YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="card" style="text-align:left; position:relative">
-          <h3 style="margin:0 0 10px; font-weight:800">Mình cùng look back một chút không nhỉ?</h3>
-          <p>Thiên Vi có chiếc playlist này từ hồi tháng 1 — chắc là nó lookback được cả journey của tụi mình luôn rồi ạ.</p>
-          <div class="gallery-wrap" aria-hidden="true">
-            <div class="gallery">
-              <img src="assets/cant-smile-1.jpg" alt="can't smile without you 1" loading="lazy">
-              <img src="assets/cant-smile-2.jpg" alt="can't smile without you 2" loading="lazy">
-              <img src="assets/cant-smile-3.jpg" alt="can't smile without you 3" loading="lazy">
-              <img src="assets/cant-smile-1.jpg" alt="" loading="lazy">
-              <img src="assets/cant-smile-2.jpg" alt="" loading="lazy">
-              <img src="assets/cant-smile-3.jpg" alt="" loading="lazy">
-            </div>
+      <div class="card" style="text-align:left; position:relative">
+        <h3 style="margin:0 0 10px; font-weight:800">Mình cùng look back một chút không nhỉ?</h3>
+        <p>Thiên Vi có chiếc playlist này từ hồi tháng 1 — chắc là nó lookback được cả journey của tụi mình luôn rồi ạ.</p>
+        <div class="gallery-wrap" aria-hidden="true">
+          <div class="gallery">
+            <img src="assets/cant-smile-1.jpg" alt="can't smile without you 1" loading="lazy">
+            <img src="assets/cant-smile-2.jpg" alt="can't smile without you 2" loading="lazy">
+            <img src="assets/cant-smile-3.jpg" alt="can't smile without you 3" loading="lazy">
+            <img src="assets/cant-smile-1.jpg" alt="" loading="lazy">
+            <img src="assets/cant-smile-2.jpg" alt="" loading="lazy">
+            <img src="assets/cant-smile-3.jpg" alt="" loading="lazy">
           </div>
-          <p style="margin-top:12px; font-weight:600; text-align:center">
-            Mọi người bảo lúc này em cười nhiều nhất trong suốt thời gian ở đây. Đúng là như vậy rồi ạ, tại vì thực sự là “Can't smile without you ạ (˵ •̀ ᴗ - ˵ ) ✧
-          </p>
         </div>
+        <p style="margin-top:12px; font-weight:600; text-align:center">
+          Mọi người bảo lúc này em cười nhiều nhất trong suốt thời gian ở đây. Đúng là như vậy rồi ạ, tại vì thực sự là “Can't smile without you ạ (˵ •̀ ᴗ - ˵ ) ✧
+        </p>
       </div>
     </section>
 
-    <!-- CONFESSION: phong bì, ẩn nội dung trước khi mở -->
+    <!-- PLAYLIST SAU ĐÓ -->
+    <section class="container section">
+      <div class="card">
+        <h3 style="margin:0 0 10px; font-weight:800; text-align:left">Playlist của tụi mình</h3>
+        <iframe style="width:100%; min-height:420px; border:0; border-radius:14px; box-shadow:var(--shadow)"
+          src="https://www.youtube.com/embed/videoseries?list=PLz301c-yfQZ8YEHu6Jn-g9q8KxXaveREV"
+          title="YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- CONFESSION: phong bì -->
     <section class="container section">
       <div id="env" class="envelope">
-        <div class="flap"></div>
-        <div class="hint">Chạm vào để xem ^.^</div> <!-- UPDATED -->
+        <div class="flap">
+          <div class="hint">Chạm vào để xem ^.^</div>
+        </div>
         <div class="paper-wrap">
           <div class="paper-inner" id="paper">
             <p>
@@ -256,17 +293,17 @@
       </div>
     </section>
 
-    <!-- Nhạc + phim (đủ text + thêm 2 link) -->
+    <!-- Nhạc + phim (text đã chỉnh) -->
     <section class="container section">
       <h3 style="margin:0 0 10px; font-weight:800">
-        Lúc nào chán quá thì mình nghe nhạc, còn chán hơn nữa thì mình xem phim. Chắc người thông minh aka Nguyễn Hà Thanh sẽ thích “Inception” - poor vì chúng ta không có cơ hội xem cùng hẹ hẹ. Đời này thi vị lắm, chúc người enjoy nhiều nha ạ ^.^
+        Lúc nào chán quá thì mình nghe nhạc, còn chán hơn nữa thì mình xem phim, đọc sách, nấu ăn, làm bánh đồ ạ. Chắc người thông minh aka Nguyễn Hà Thanh sẽ thích “Inception” - poor vì chúng ta không có cơ hội xem cùng hẹ hẹ. Đời này thi vị lắm, chúc người enjoy nhiều nha ạ ^.^
       </h3>
       <div class="music-links">
         <a href="https://www.youtube.com/watch?v=DydIIDQuhxU&list=RDDydIIDQuhxU&start_radio=1" target="_blank" rel="noopener">Thư cho anh</a>
         <a href="https://www.youtube.com/watch?v=A8-ENEqhQjg" target="_blank" rel="noopener">Every day, Every Moment</a>
         <a href="https://www.youtube.com/watch?v=YoHD9XEInc0" target="_blank" rel="noopener">Inception</a>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank" rel="noopener">Interstellar</a> <!-- UPDATED -->
-        <a href="https://www.youtube.com/watch?v=oglmFkKicYk&list=RDoglmFkKicYk&start_radio=1" target="_blank" rel="noopener">Wish</a> <!-- UPDATED -->
+        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank" rel="noopener">Interstellar</a>
+        <a href="https://www.youtube.com/watch?v=oglmFkKicYk&list=RDoglmFkKicYk&start_radio=1" target="_blank" rel="noopener">Wish</a>
       </div>
     </section>
   </main>
@@ -281,22 +318,44 @@
   <button id="musicBtn" class="music-btn" aria-pressed="false" aria-label="Toggle music">♫ Music</button>
 
   <script>
+    // ===== Preferences =====
+    const PREFERS_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; /* UPDATED */
+
     // ===== Music autoplay =====
     const MUSIC_SRC = 'assets/Bongo Cat - Happy Birthday to You (Cover Version) 🎧 - Bongo Cat (youtube).mp3';
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
     bgm.src = encodeURI(MUSIC_SRC);
     bgm.volume = 0.6;
-    const firstUnlock = async () => { try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); } catch(e){} ['click','touchstart','keydown','scroll','pointermove'].forEach(ev => window.removeEventListener(ev, firstUnlock, {passive:true})); };
-    ['click','touchstart','keydown','scroll','pointermove'].forEach(ev => window.addEventListener(ev, firstUnlock, {passive:true}));
-    musicBtn.addEventListener('click', async () => { if (bgm.paused) { try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); } catch(e){} } else { bgm.pause(); musicBtn.setAttribute('aria-pressed','false'); }});
-    document.addEventListener('visibilitychange', async () => { if (!document.hidden && musicBtn.getAttribute('aria-pressed') === 'true' && bgm.paused) { try { await bgm.play(); } catch(e){} }});
 
-    // ===== Candle
+    const firstUnlock = async () => {
+      try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); }
+      catch(e){}
+      ['click','touchstart','keydown','scroll','pointermove'].forEach(ev => window.removeEventListener(ev, firstUnlock, {passive:true}));
+    };
+    ['click','touchstart','keydown','scroll','pointermove'].forEach(ev => window.addEventListener(ev, firstUnlock, {passive:true}));
+
+    musicBtn.addEventListener('click', async () => {
+      if (bgm.paused) {
+        try { await bgm.play(); musicBtn.setAttribute('aria-pressed','true'); }
+        catch(e){}
+      } else {
+        bgm.pause(); musicBtn.setAttribute('aria-pressed','false');
+      }
+    });
+
+    document.addEventListener('visibilitychange', async () => {
+      if (!document.hidden && musicBtn.getAttribute('aria-pressed') === 'true' && bgm.paused) {
+        try { await bgm.play(); } catch(e){}
+      }
+    });
+
+    // ===== Candle (Haptic) =====
     const candle = document.getElementById('candle');
     const smoke = document.getElementById('smoke');
     let blown = false;
     candle?.addEventListener('click', ()=>{
+      if (navigator.vibrate) navigator.vibrate(10); // haptic
       if (blown) return;
       blown = true;
       candle.classList.add('off');
@@ -304,7 +363,7 @@
       setTimeout(()=> smoke.classList.remove('show'), 1300);
     });
 
-    // ===== Gift balloons
+    // ===== Gift balloons (Haptic) =====
     const gift = document.getElementById('gift');
     const balloons = document.getElementById('balloons');
     let opened = false;
@@ -321,18 +380,110 @@
       setTimeout(()=> b.remove(), 3200);
     }
     gift?.addEventListener('click', ()=>{
+      if (navigator.vibrate) navigator.vibrate(10); // haptic
       if(!opened){ gift.classList.add('open'); opened = true; for(let i=0;i<14;i++) setTimeout(()=>spawnBalloon(i), i*120); }
       else { for(let i=0;i<6;i++) setTimeout(()=>spawnBalloon(i), i*140); }
     });
 
-    // ===== CONFESSION toggle (click toàn bộ phong bì)
+    // ===== CONFESSION toggle + Confetti hearts (lớn) =====
     const env = document.getElementById('env');
     const paper = document.getElementById('paper');
+
+    function spawnHearts(container, count=14){
+      if (PREFERS_REDUCED) return;
+      for(let i=0;i<count;i++){
+        const h = document.createElement('span');
+        h.className = 'heart';
+        h.textContent = '♥';
+        const left = 10 + Math.random()*80;
+        const size = 14 + Math.random()*10;
+        const dur = 1500 + Math.random()*500;
+        const drift = (Math.random()*40 - 20);
+        const delay = Math.random()*200;
+        h.style.left = left + '%';
+        h.style.fontSize = size + 'px';
+        h.style.setProperty('--drift', drift + 'px');
+        h.style.animation = `fall ${dur}ms ease-in forwards`;
+        if (delay) { h.style.animationDelay = delay + 'ms'; }
+        container.appendChild(h);
+        setTimeout(()=> h.remove(), dur + 220);
+      }
+    }
+
     env?.addEventListener('click', ()=>{
       env.classList.toggle('open');
-      if (paper.style.maxHeight && paper.style.maxHeight !== '0px'){ paper.style.maxHeight = '0px'; paper.style.padding = '0 22px 0'; }
-      else { paper.style.maxHeight = paper.scrollHeight + 'px'; paper.style.padding = '22px'; }
+      const opening = env.classList.contains('open');
+      if (opening) spawnHearts(env, 16);
+      if (paper.style.maxHeight && paper.style.maxHeight !== '0px'){
+        paper.style.maxHeight = '0px'; paper.style.padding = '0 22px 0';
+      } else {
+        paper.style.maxHeight = paper.scrollHeight + 'px'; paper.style.padding = '22px';
+      }
     });
+
+    // ===== Parallax icon nền (1–2px) =====
+    (function(){
+      const decor = document.getElementById('bgDecor');
+      if (!decor || PREFERS_REDUCED) return;
+      let rafId = null, targetX = 0, targetY = 0;
+      function onMove(e){
+        const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+        const dx = (e.clientX - cx), dy = (e.clientY - cy);
+        targetX = Math.max(-2, Math.min(2, dx * 0.01));
+        targetY = Math.max(-2, Math.min(2, dy * 0.01));
+        if (!rafId){
+          rafId = requestAnimationFrame(()=>{
+            decor.style.transform = `translate(${targetX}px, ${targetY}px)`;
+            rafId = null;
+          });
+        }
+      }
+      window.addEventListener('mousemove', onMove, {passive:true});
+    })();
+
+    // ===== UPDATED: Auto-heart trail khi hover nút Music =====
+    function miniHeartTrail(){
+      if (PREFERS_REDUCED) return;
+      const rect = musicBtn.getBoundingClientRect();
+      const count = 1 + Math.floor(Math.random()*2);
+      for(let i=0;i<count;i++){
+        const span = document.createElement('span');
+        span.className = 'mini-heart';
+        span.textContent = '♥';
+        const x = rect.left + rect.width/2 + (Math.random()*24 - 12);
+        const y = rect.top + 6 + (Math.random()*6 - 3);
+        span.style.left = x + 'px';
+        span.style.top  = y + 'px';
+        span.style.animation = 'miniUp 600ms ease-out forwards';
+        document.body.appendChild(span);
+        setTimeout(()=> span.remove(), 620);
+      }
+    }
+    musicBtn?.addEventListener('mouseenter', miniHeartTrail);
+    musicBtn?.addEventListener('mousemove', (e)=>{ if (Math.random() < 0.1) miniHeartTrail(); }); // rải thưa thêm chút
+
+    // ===== UPDATED: Sparkle on click (mọi nơi) =====
+    window.addEventListener('click', (e)=>{
+      if (PREFERS_REDUCED) return;
+      const n = 5 + Math.floor(Math.random()*3); // 5–7
+      for(let i=0;i<n;i++){
+        const sp = document.createElement('span');
+        sp.className = 'sparkle';
+        sp.textContent = '✦';
+        const ang = Math.random()*Math.PI*2;
+        const dist = 16 + Math.random()*20; // px
+        const tx = Math.cos(ang)*dist;
+        const ty = Math.sin(ang)*dist;
+        sp.style.left = (e.clientX) + 'px';
+        sp.style.top  = (e.clientY) + 'px';
+        sp.style.setProperty('--tx', tx + 'px');
+        sp.style.setProperty('--ty', ty + 'px');
+        const dur = 300 + Math.random()*200; // 300–500ms
+        sp.style.animation = `sparkle ${dur}ms ease-out forwards`;
+        document.body.appendChild(sp);
+        setTimeout(()=> sp.remove(), dur + 50);
+      }
+    }, {passive:true});
   </script>
 </body>
 </html>
